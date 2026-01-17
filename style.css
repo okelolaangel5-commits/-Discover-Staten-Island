@@ -1,4 +1,3 @@
-
 .hero {
   height: 100vh;
   background-image: url("conference.jpg");
@@ -15,6 +14,8 @@
   font-size: 3rem;
   color: white;
 }
+
 .hero p {
   color: #ddd;
 }
+
