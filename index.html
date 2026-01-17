@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <meta charset="UTF-8">
 <title>Discover Staten Island</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,232 @@
   padding:0;
   box-sizing:border-box;
   font-family:"Segoe UI",sans-serif;
+}/* === FINAL POLISH === */
+
+// applause sound
+const applauseSound = new Audio(
+  "https://cdn.pixabay.com/audio/2022/03/15/audio_9a4d6c1e3b.mp3"
+);
+applauseSound.volume = 0.6;
+
+// confetti function
+function launchConfetti() {
+  const duration = 2000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 6,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 }
+    });
+    confetti({
+      particleCount: 6,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 }
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
 }
+
+  
+<script>
+  let currentQuestion = 0;
+  let score = 0;
+
+  const quiz = document.getElementById("quiz");
+
+  const clickSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_2b8b0b4f90.mp3");
+  const correctSound = new Audio("https://cdn.pixabay.com/audio/2022/03/10/audio_3f4cfc7c37.mp3");
+  const wrongSound = new Audio("https://cdn.pixabay.com/audio/2022/03/10/audio_7b3b9fbb0b.mp3");
+
+  function loadQuestion() {
+    quiz.innerHTML = "";
+
+    const scoreBox = document.createElement("div");
+    scoreBox.id = "scoreBox";
+    scoreBox.innerHTML = `Score: <span id="score">${score}</span>`;
+    quiz.appendChild(scoreBox);
+
+    const question = document.createElement("div");
+    question.className = "question";
+    question.textContent = quizData[currentQuestion].q;
+    quiz.appendChild(question);
+
+    quizData[currentQuestion].options.forEach((option, index) => {
+      const div = document.createElement("div");
+      div.className = "option";
+      div.textContent = option;
+
+      div.onclick = () => checkAnswer(div, index);
+      quiz.appendChild(div);
+    });
+  }
+
+  function checkAnswer(selected, answerIndex) {
+    clickSound.play();
+
+    const correctIndex = quizData[currentQuestion].correct;
+    const options = document.querySelectorAll(".option");
+
+    options.forEach((opt, i) => {
+      opt.onclick = null;
+      if (i === correctIndex) opt.classList.add("correct");
+      if (i === answerIndex && i !== correctIndex) opt.classList.add("wrong");
+    });
+
+    if (answerIndex === correctIndex) {
+      score++;
+      correctSound.play();
+    } else {
+      wrongSound.play();
+    }
+
+    document.getElementById("score").textContent = score;
+
+    setTimeout(() => {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        quiz.innerHTML = `
+          <h3>Quiz Completed 🎉</h3>
+          <p>Your score: <strong>${score} / ${quizData.length}</strong></p>
+        `;
+      }
+    }, 1200);
+  }
+
+  loadQuestion();
+</script>
+<script>
+  let currentQuestion = 0;
+  let score = 0;
+
+  const quiz = document.getElementById("quiz");
+
+  /* === SOUNDS === */
+  const clickSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_2b8b0b4f90.mp3");
+  const correctSound = new Audio("https://cdn.pixabay.com/audio/2022/03/10/audio_3f4cfc7c37.mp3");
+  const wrongSound = new Audio("https://cdn.pixabay.com/audio/2022/03/10/audio_7b3b9fbb0b.mp3");
+
+  const bgMusic = new Audio("https://cdn.pixabay.com/audio/2022/10/03/audio_946bfa3f6c.mp3");
+  bgMusic.loop = true;
+  bgMusic.volume = 0.3;
+
+  /* === LOAD QUESTION === */
+  function loadQuestion() {
+    quiz.innerHTML = "";
+
+    /* MUSIC TOGGLE */
+    const musicBtn = document.createElement("button");
+    musicBtn.textContent = bgMusic.paused ? "🔊 Music ON" : "🔇 Music OFF";
+    musicBtn.style.marginBottom = "15px";
+    musicBtn.onclick = () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicBtn.textContent = "🔇 Music OFF";
+      } else {
+        bgMusic.pause();
+        musicBtn.textContent = "🔊 Music ON";
+      }
+    };
+    quiz.appendChild(musicBtn);
+
+    /* SCORE */
+    const scoreBox = document.createElement("div");
+    scoreBox.id = "scoreBox";
+    scoreBox.innerHTML = `Score: <span id="score">${score}</span>`;
+    quiz.appendChild(scoreBox);
+
+    /* PROGRESS BAR */
+    const progressContainer = document.createElement("div");
+    progressContainer.style.background = "#333";
+    progressContainer.style.borderRadius = "10px";
+    progressContainer.style.overflow = "hidden";
+    progressContainer.style.margin = "15px 0";
+
+    const progressBar = document.createElement("div");
+    progressBar.style.height = "10px";
+    progressBar.style.width = `${(currentQuestion / quizData.length) * 100}%`;
+    progressBar.style.background = "#6ab04c";
+    progressBar.style.transition = "width 0.5s ease";
+
+    progressContainer.appendChild(progressBar);
+    quiz.appendChild(progressContainer);
+
+    /* QUESTION */
+    const question = document.createElement("div");
+    question.className = "question";
+    question.textContent = quizData[currentQuestion].q;
+    quiz.appendChild(question);
+
+    /* OPTIONS */
+    quizData[currentQuestion].options.forEach((option, index) => {
+      const div = document.createElement("div");
+      div.className = "option";
+      div.textContent = option;
+
+      div.onclick = () => checkAnswer(div, index);
+      quiz.appendChild(div);
+    });
+  }
+
+  /* === CHECK ANSWER === */
+  function checkAnswer(selected, answerIndex) {
+    clickSound.play();
+
+    const correctIndex = quizData[currentQuestion].correct;
+    const options = document.querySelectorAll(".option");
+
+    options.forEach((opt, i) => {
+      opt.onclick = null;
+      if (i === correctIndex) opt.classList.add("correct");
+      if (i === answerIndex && i !== correctIndex) opt.classList.add("wrong");
+    });
+
+    if (answerIndex === correctIndex) {
+      score++;
+      correctSound.play();
+      animateScore();
+    } else {
+      wrongSound.play();
+    }
+
+    setTimeout(() => {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        bgMusic.pause();
+        quiz.innerHTML = `
+          <h2>Quiz Completed 🎉</h2>
+          <p>Your Final Score:</p>
+          <h1>${score} / ${quizData.length}</h1>
+        `;
+      }
+    }, 1200);
+  }
+
+  /* === SCORE ANIMATION === */
+  function animateScore() {
+    const scoreEl = document.getElementById("score");
+    scoreEl.style.transform = "scale(1.4)";
+    scoreEl.style.color = "#6ab04c";
+
+    setTimeout(() => {
+      scoreEl.style.transform = "scale(1)";
+      scoreEl.style.color = "";
+    }, 300);
+  }
+
+  loadQuestion();
+</script>
 
 body{
   background:#0b1020;
@@ -262,7 +488,20 @@ function load(){
     d.innerText=quiz[i][j];
     d.onclick=()=>{answers.push(j-1);i++;i<quiz.length?load():show();}
     opts.appendChild(d);
-  }
+  }bgMusic.pause();
+applauseSound.play();
+launchConfetti();
+
+quiz.innerHTML = `
+  <h2 style="animation: fadeUp 1s ease;">Quiz Completed 🎉</h2>
+  <p style="font-size:1.2rem;">Amazing work!</p>
+  <h1 style="font-size:3rem; color:#6ab04c;">
+    ${score} / ${quizData.length}
+  </h1>
+  <p>Presented by Angel, Stella, Tia, Eske & Johan</p>
+`;
+
+  
 }
 function show(){
   q.innerText="Quiz Completed 🎉";
