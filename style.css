@@ -1,22 +1,4 @@
-.option {
- background: #111;
- border: 1px solid #1e90ff;
- padding: 12px;
- margin: 10px 0;
- border-radius: 10px;
- cursor: pointer;
- transition: 0.3s;
-}
 
-.option:hover {
- box-shadow: 0 0 12px #1e90ff;
-}
-
-.option.selected {
- background: #1e90ff;
- color: black;
- font-weight: bold;
-}
 .hero {
   height: 100vh;
   background: url("https://images.unsplash.com/photo-1542224566-6e85f2e6772f") center/cover no-repeat;
