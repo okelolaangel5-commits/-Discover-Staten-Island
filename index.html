@@ -3,293 +3,260 @@
 <head>
 <meta charset="UTF-8">
 <title>Discover Staten Island</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --blue:#1e90ff;
-  --dark:#0b0f1a;
-  --card:#12182b;
-  --glow:0 0 15px rgba(30,144,255,.6);
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #0b1d3a, #020814);
+  color: #e6f0ff;
 }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Arial;}
-
-body{
-  background:radial-gradient(circle at top,var(--card),var(--dark));
-  color:white;
-  line-height:1.6;
+/* HERO */
+header {
+  text-align: center;
+  padding: 70px 20px;
+  background: linear-gradient(135deg, #020814, #0a2cff);
 }
 
-/* ---------- HERO ---------- */
-.hero{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  background:
-    linear-gradient(to bottom,rgba(0,0,0,.7),rgba(0,0,0,.9)),
-    url("https://upload.wikimedia.org/wikipedia/commons/5/5e/Staten_Island_Ferry_and_Manhattan.jpg");
-  background-size:cover;
-  background-position:center;
+h1 {
+  font-size: 3em;
+  text-shadow: 0 0 25px #4da6ff;
+  animation: float 3s ease-in-out infinite;
 }
 
-.hero h1{
-  font-size:3.2rem;
-  letter-spacing:3px;
-  text-shadow:var(--glow);
+.names {
+  opacity: 0.85;
+  margin-top: 10px;
 }
 
-.hero p{
-  margin-top:15px;
-  opacity:.9;
+/* ANIMATION */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
 }
 
-.names{
-  margin-top:20px;
-  font-size:1rem;
-  color:#9fc9ff;
+/* SECTIONS */
+section {
+  max-width: 1000px;
+  margin: auto;
+  padding: 50px 25px;
 }
 
-/* ---------- SECTIONS ---------- */
-section{
-  padding:70px 10%;
+h2 {
+  color: #6fb8ff;
+  text-shadow: 0 0 10px #1e90ff;
 }
 
-h2{
-  text-align:center;
-  margin-bottom:40px;
-  color:#9fc9ff;
-  text-shadow:var(--glow);
+/* IMAGES */
+.images {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.card{
-  background:var(--card);
-  border-radius:15px;
-  padding:25px;
-  box-shadow:var(--glow);
-  margin-bottom:30px;
-  animation:fadeUp 1s ease;
+.images img {
+  width: 420px;
+  max-width: 90%;
+  border-radius: 16px;
+  box-shadow: 0 0 25px #1e90ff;
 }
 
-/* ---------- IMAGES ---------- */
-img{
-  width:100%;
-  max-width:500px;
-  display:block;
-  margin:20px auto;
-  border-radius:15px;
-  animation:float 5s ease-in-out infinite;
+/* MAP */
+iframe {
+  width: 100%;
+  height: 360px;
+  border-radius: 18px;
+  border: none;
+  box-shadow: 0 0 25px #1e90ff;
 }
 
-/* ---------- MAP ---------- */
-.map{
-  background:#081225;
-  border-radius:20px;
-  padding:30px;
-  text-align:center;
+/* QUIZ */
+.quiz-box {
+  background: rgba(10, 30, 70, 0.6);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px #0a5cff;
 }
 
-svg{
-  width:100%;
-  max-width:500px;
+.question {
+  margin-bottom: 20px;
 }
 
-/* ---------- QUIZ ---------- */
-.quiz{
-  max-width:600px;
-  margin:auto;
-  text-align:center;
+.options label {
+  display: block;
+  margin: 6px 0;
+  cursor: pointer;
 }
 
-.option{
-  background:#0e1c3b;
-  margin:10px 0;
-  padding:15px;
-  border-radius:10px;
-  cursor:pointer;
-  transition:.3s;
+button {
+  margin-top: 20px;
+  padding: 14px 34px;
+  border-radius: 30px;
+  border: none;
+  background: #1e90ff;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 0 25px #1e90ff;
 }
 
-.option:hover{
-  background:#1e90ff;
-  box-shadow:var(--glow);
+button:hover {
+  box-shadow: 0 0 45px #4da6ff;
 }
 
-.progress{
-  height:10px;
-  background:#222;
-  border-radius:10px;
-  overflow:hidden;
-  margin:20px 0;
+.result {
+  margin-top: 30px;
 }
 
-.bar{
-  height:100%;
-  width:0%;
-  background:var(--blue);
-  transition:.4s;
+/* CONFETTI */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: fall 3s linear forwards;
 }
 
-.glow-btn{
-  margin-top:30px;
-  padding:15px 40px;
-  font-size:1rem;
-  border:none;
-  border-radius:50px;
-  background:var(--blue);
-  color:black;
-  cursor:pointer;
-  box-shadow:var(--glow);
-  animation:pulse 2s infinite;
-}
-
-/* ---------- CONFETTI ---------- */
-.confetti{
-  position:fixed;
-  width:8px;
-  height:8px;
-  background:red;
-  animation:fall 3s linear infinite;
-}
-
-/* ---------- ANIMATIONS ---------- */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px);}
-  to{opacity:1;transform:none;}
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-10px);}
-}
-
-@keyframes pulse{
-  0%{box-shadow:0 0 10px var(--blue);}
-  50%{box-shadow:0 0 30px var(--blue);}
-  100%{box-shadow:0 0 10px var(--blue);}
-}
-
-@keyframes fall{
-  from{top:-10px;opacity:1;}
-  to{top:110vh;opacity:0;}
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="hero">
+<header>
   <h1>DISCOVER STATEN ISLAND</h1>
-  <p>History · Culture · Politics · Fun Facts</p>
-  <div class="names">Angel · Stella · Tia · Eske · Johan</div>
-</div>
+  <p class="names">By Angel Okelola · Stella · Tila · Eske · Johan</p>
+</header>
+
+<section class="images">
+  <img src="https://images.unsplash.com/photo-1549921296-3a6b3b8e7d59">
+  <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
+</section>
 
 <section>
-<h2>History Timeline</h2>
-<div class="card">
-  <p>Staten Island was first settled by the Dutch in 1624. It later became one of New York City's five boroughs in 1898 and played a major role in shipping, immigration, and culture.</p>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Staten_Island_1874.jpg">
-</div>
+<h2>History</h2>
+<p>
+Staten Island was originally home to the Lenape Native Americans.  
+European exploration began in 1609, followed by Dutch and British rule.  
+In 1898, Staten Island officially became the fifth borough of New York City.  
+It developed more slowly than others, preserving green spaces and suburban life.
+</p>
 </section>
 
 <section>
 <h2>Pop Culture</h2>
-<div class="card">
-  <p>Staten Island is the birthplace of the legendary hip-hop group <strong>Wu-Tang Clan</strong>. It has also appeared in many films and series.</p>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Wu-Tang_Clan_logo.svg">
-</div>
+<p>
+Staten Island gained global recognition through the Wu-Tang Clan, one of the most
+influential hip-hop groups in history.  
+The Staten Island Ferry frequently appears in films and TV shows and is an iconic
+symbol of New York.
+</p>
 </section>
 
 <section>
 <h2>Politics</h2>
-<div class="card">
-  <p>Staten Island has its own Borough President and often has different political views compared to the rest of NYC.</p>
-</div>
+<p>
+Politically, Staten Island often differs from the rest of NYC.  
+It has strong local identity, civic engagement, and representation through a
+borough president and city council members.
+</p>
 </section>
 
 <section>
-<h2>Map of Staten Island</h2>
-<div class="map">
-<svg viewBox="0 0 200 120">
-  <path d="M20 60 Q80 10 150 40 Q180 70 140 100 Q70 110 30 80 Z" fill="#1e90ff"/>
-</svg>
-<p>Custom illustrated map of Staten Island</p>
-</div>
+<h2>Map</h2>
+<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-74.2591%2C40.4774%2C-74.0522%2C40.6514&layer=mapnik"></iframe>
 </section>
 
 <section>
-<h2>Quiz</h2>
-<div class="quiz">
-<div class="progress"><div class="bar" id="bar"></div></div>
-<h3 id="question"></h3>
-<div id="options"></div>
-</div>
+<h2>Quiz: Staten Island (16 Questions)</h2>
+
+<div class="quiz-box" id="quiz"></div>
+<button onclick="submitQuiz()">Submit Quiz</button>
+
+<div class="result" id="result"></div>
 </section>
+
+<audio id="applause" src="https://cdn.pixabay.com/audio/2022/03/15/audio_5b63d36e1e.mp3"></audio>
 
 <script>
-const quiz=[
-{q:"Which borough is Staten Island?",o:["A. Manhattan","B. Brooklyn","C. Staten Island","D. Queens"],a:2},
-{q:"What ferry connects Staten Island to Manhattan?",o:["A. Hudson Ferry","B. Staten Island Ferry","C. NYC Boat","D. Harbor Ferry"],a:1},
-{q:"Which music group is from Staten Island?",o:["A. BTS","B. Wu-Tang Clan","C. Beatles","D. NWA"],a:1},
-{q:"What year did Staten Island join NYC?",o:["A. 1850","B. 1898","C. 1920","D. 2001"],a:1},
-{q:"Which ocean borders Staten Island?",o:["A. Atlantic","B. Pacific","C. Indian","D. Arctic"],a:0},
-{q:"What is the nickname of Staten Island?",o:["A. Emerald Isle","B. Forgotten Borough","C. Blue Island","D. Harbor Town"],a:1},
-{q:"Which bridge connects Staten Island to Brooklyn?",o:["A. Brooklyn Bridge","B. Verrazzano Bridge","C. Manhattan Bridge","D. Queensboro"],a:1},
-{q:"What is Staten Island known for?",o:["A. Skyscrapers","B. Parks & nature","C. Deserts","D. Volcanoes"],a:1},
-{q:"Which park is famous on Staten Island?",o:["A. Central Park","B. Clove Lakes","C. Hyde Park","D. Prospect"],a:1},
-{q:"Who governs Staten Island locally?",o:["A. Mayor","B. Governor","C. Borough President","D. Senator"],a:2},
-{q:"Which river surrounds Staten Island?",o:["A. Mississippi","B. Hudson","C. Nile","D. Amazon"],a:1},
-{q:"What museum is famous there?",o:["A. Louvre","B. British Museum","C. Staten Island Museum","D. MoMA"],a:2},
-{q:"Staten Island is part of which city?",o:["A. LA","B. Chicago","C. NYC","D. Miami"],a:2},
-{q:"Which ferry is free?",o:["A. Staten Island Ferry","B. Brooklyn Ferry","C. Hudson Ferry","D. East Ferry"],a:0},
-{q:"What type of area dominates Staten Island?",o:["A. Industrial","B. Natural","C. Desert","D. Arctic"],a:1},
-{q:"How many boroughs are in NYC?",o:["A. 3","B. 4","C. 5","D. 6"],a:2}
+const questions = [
+  {q:"Which city is Staten Island part of?", a:"B", opts:["A. Washington DC","B. New York City","C. Boston","D. Chicago"], correct:"New York City"},
+  {q:"Which bridge connects Staten Island to Brooklyn?", a:"A", opts:["A. Verrazzano-Narrows","B. Brooklyn Bridge","C. Manhattan Bridge","D. Williamsburg"], correct:"Verrazzano-Narrows"},
+  {q:"Which ferry is free?", a:"C", opts:["A. Hudson Ferry","B. Brooklyn Ferry","C. Staten Island Ferry","D. East River Ferry"], correct:"Staten Island Ferry"},
+  {q:"Who lived there before Europeans?", a:"B", opts:["A. Maya","B. Lenape","C. Inca","D. Aztec"], correct:"Lenape"},
+  {q:"When did it become a borough?", a:"D", opts:["A. 1776","B. 1820","C. 1850","D. 1898"], correct:"1898"},
+  {q:"Famous music group from Staten Island?", a:"A", opts:["A. Wu-Tang Clan","B. BTS","C. Beatles","D. NWA"], correct:"Wu-Tang Clan"},
+  {q:"Which ocean is nearby?", a:"C", opts:["A. Pacific","B. Indian","C. Atlantic","D. Arctic"], correct:"Atlantic"},
+  {q:"Staten Island is known for being more…", a:"B", opts:["A. Industrial","B. Suburban","C. Rural","D. Desert"], correct:"Suburban"},
+  {q:"Which bridge opened in 1965?", a:"A", opts:["A. Verrazzano","B. Golden Gate","C. Brooklyn","D. Queensboro"], correct:"Verrazzano"},
+  {q:"Least populated NYC borough?", a:"D", opts:["A. Manhattan","B. Brooklyn","C. Queens","D. Staten Island"], correct:"Staten Island"},
+  {q:"What transport symbol is iconic?", a:"C", opts:["A. Subway","B. Taxi","C. Ferry","D. Bus"], correct:"Ferry"},
+  {q:"Which borough is greenest?", a:"B", opts:["A. Bronx","B. Staten Island","C. Manhattan","D. Queens"], correct:"Staten Island"},
+  {q:"Which country colonized first?", a:"A", opts:["A. Netherlands","B. Spain","C. France","D. Portugal"], correct:"Netherlands"},
+  {q:"Local leader title?", a:"C", opts:["A. Governor","B. President","C. Borough President","D. Senator"], correct:"Borough President"},
+  {q:"Main cultural value?", a:"D", opts:["A. Speed","B. Wealth","C. Tourism","D. Community"], correct:"Community"},
+  {q:"Nickname related to NYC?", a:"B", opts:["A. Windy City","B. Fifth Borough","C. Capital","D. Empire"], correct:"Fifth Borough"}
 ];
 
-let i=0,score=0;
-const q=document.getElementById("question");
-const o=document.getElementById("options");
-const bar=document.getElementById("bar");
+const quizDiv = document.getElementById("quiz");
 
-function load(){
-q.innerText=quiz[i].q;
-o.innerHTML="";
-quiz[i].o.forEach((x,idx)=>{
- let d=document.createElement("div");
- d.className="option";
- d.innerText=x;
- d.onclick=()=>check(idx);
- o.appendChild(d);
+questions.forEach((q, i) => {
+  quizDiv.innerHTML += `
+    <div class="question">
+      <p><strong>${i+1}. ${q.q}</strong></p>
+      <div class="options">
+        ${q.opts.map(o =>
+          `<label><input type="radio" name="q${i}" value="${o[0]}"> ${o}</label>`
+        ).join("")}
+      </div>
+    </div>
+  `;
 });
-bar.style.width=(i/16*100)+"%";
+
+function submitQuiz() {
+  let score = 0;
+  let feedback = "";
+
+  questions.forEach((q, i) => {
+    const chosen = document.querySelector(`input[name="q${i}"]:checked`);
+    if (chosen && chosen.value === q.a) {
+      score++;
+    } else {
+      feedback += `<p>❌ Question ${i+1}: Correct answer is <strong>${q.correct}</strong></p>`;
+    }
+  });
+
+  document.getElementById("result").innerHTML =
+    `<h3>Your Score: ${score} / 16</h3>` + feedback;
+
+  if (score === 16) {
+    document.getElementById("applause").play();
+    launchConfetti();
+  }
 }
 
-function check(idx){
-if(idx===quiz[i].a)score++;
-i++;
-if(i<16)load();
-else end();
+function launchConfetti() {
+  for (let i = 0; i < 200; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random()*100 + "vw";
+    c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    c.style.animationDuration = (2 + Math.random()*2) + "s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
 }
-
-function end(){
-document.body.innerHTML="<h1 style='text-align:center;margin-top:40vh;'>🎉 PERFECT!<br>Angel · Stella · Tia · Eske · Johan</h1>";
-for(let c=0;c<150;c++){
- let d=document.createElement("div");
- d.className="confetti";
- d.style.left=Math.random()*100+"vw";
- d.style.background=`hsl(${Math.random()*360},100%,50%)`;
- d.style.animationDuration=2+Math.random()*3+"s";
- document.body.appendChild(d);
-}
-new Audio("https://www.soundjay.com/human/applause-01.mp3").play();
-}
-
-load();
 </script>
 
 </body>
 </html>
 
+
+ 
