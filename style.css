@@ -17,3 +17,47 @@
  color: black;
  font-weight: bold;
 }
+.hero {
+  height: 100vh;
+  background: url("https://images.unsplash.com/photo-1542224566-6e85f2e6772f") center/cover no-repeat;
+  position: relative;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.glow {
+  font-size: 3.5rem;
+  color: #eaeaff;
+  text-shadow:
+    0 0 10px #4da3ff,
+    0 0 20px #4da3ff,
+    0 0 40px #1f6fff;
+  animation: float 4s ease-in-out infinite;
+}
+
+.subtitle {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.names {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  opacity: 0.75;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
