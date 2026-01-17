@@ -2,258 +2,244 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Discover Staten Island</title>
+<title>Explore Staten Island</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Leaflet Map -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
-:root{
-  --blue:#00bfff;
-  --dark:#05070d;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0b0d17;
+  color: #fff;
 }
 
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-
-body{
-  margin:0;
-  color:white;
-  background:
-    linear-gradient(rgba(0,0,0,.85),rgba(0,0,0,.9)),
-    url("https://images.unsplash.com/photo-1546436836-07a91091f160");
-  background-size:cover;
-  background-attachment:fixed;
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url("https://images.unsplash.com/photo-1534447677768-be436bb09401") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
-
-/* HEADER */
-header{
-  padding:80px 20px;
-  text-align:center;
+.hero h1 {
+  font-size: 3rem;
+  animation: fadeIn 2s ease;
 }
-header h1{
-  font-size:3rem;
-  color:var(--blue);
-  text-shadow:0 0 25px var(--blue);
-}
-header p{
-  max-width:800px;
-  margin:auto;
-  opacity:.9;
+.hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
 }
 
 /* SECTIONS */
-section{
-  padding:70px 10%;
+section {
+  padding: 60px 20px;
+  max-width: 1100px;
+  margin: auto;
 }
-h2{
-  color:var(--blue);
-  text-shadow:0 0 10px var(--blue);
-  margin-bottom:20px;
-}
-
-.card{
-  background:rgba(10,15,30,.85);
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 0 30px rgba(0,191,255,.15);
-  margin-bottom:30px;
-  animation:float 6s ease-in-out infinite;
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
-
-img{
-  max-width:90%;
-  border-radius:15px;
-  margin:20px auto;
-  display:block;
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 /* MAP */
-#map{
-  height:400px;
-  border-radius:15px;
-  box-shadow:0 0 30px rgba(0,191,255,.3);
+#map {
+  height: 400px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+/* FUN FACTS */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.fact {
+  background: #15182b;
+  padding: 20px;
+  border-radius: 15px;
+  transition: transform 0.3s;
+}
+.fact:hover {
+  transform: translateY(-5px);
 }
 
 /* QUIZ */
-#quizBox button{
-  display:block;
-  width:100%;
-  padding:15px;
-  margin:10px 0;
-  background:rgba(0,191,255,.15);
-  border:2px solid var(--blue);
-  color:white;
-  border-radius:12px;
-  cursor:pointer;
-  transition:.3s;
+#quiz {
+  background: #15182b;
+  padding: 30px;
+  border-radius: 20px;
 }
-#quizBox button:hover{
-  background:var(--blue);
-  color:black;
-  box-shadow:0 0 20px var(--blue);
+.option {
+  background: #0b0d17;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.option:hover {
+  border-color: #7f5af0;
+}
+button {
+  background: #7f5af0;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
-.glow{
-  animation:glow 2s infinite alternate;
-}
-@keyframes glow{
-  from{box-shadow:0 0 10px var(--blue)}
-  to{box-shadow:0 0 25px var(--blue)}
+/* RESULT */
+.correct { color: #2ecc71; }
+.wrong { color: #e74c3c; }
+
+/* CREDITS */
+.credits {
+  text-align: center;
+  opacity: 0.8;
 }
 
-/* CONFETTI */
-.confetti{
-  position:fixed;
-  width:10px;
-  height:10px;
-  background:var(--blue);
-  top:-10px;
-  animation:fall 3s linear forwards;
-}
-@keyframes fall{
-  to{transform:translateY(100vh) rotate(360deg)}
+/* ANIMATION */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>✨ Discover Staten Island ✨</h1>
-  <p>
-    Created by <strong>Okelola Angel</strong><br>
-    Staten Island is New York City’s greenest and most historic borough,
-    rich in culture, politics, and modern pop influence.
-  </p>
-</header>
-
-<section>
-  <h2>🗺 Staten Island Map</h2>
-  <div id="map"></div>
-</section>
-
-<section>
-  <h2>📜 History</h2>
-  <div class="card">
-    Staten Island was first inhabited by the Lenape Native Americans before
-    becoming part of New Netherland in the 1600s. It officially became one of
-    New York City's five boroughs in 1898. Unlike other boroughs, Staten Island
-    developed more suburban neighborhoods while maintaining large protected
-    green spaces.
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <h1>Explore Staten Island</h1>
+    <p>History • Culture • Nature • Fun</p>
   </div>
-</section>
+</div>
 
+<!-- MAP -->
 <section>
-  <h2>⏳ Timeline</h2>
-  <div class="card">
-    <ul>
-      <li><b>1609:</b> Henry Hudson explores the area</li>
-      <li><b>1898:</b> Staten Island becomes a NYC borough</li>
-      <li><b>1964:</b> Verrazzano-Narrows Bridge opens</li>
-      <li><b>1997:</b> Fresh Kills landfill closes</li>
-    </ul>
-  </div>
+<h2>Staten Island Map</h2>
+<div id="map"></div>
 </section>
 
+<!-- FUN FACTS -->
 <section>
-  <h2>🎭 Pop Culture</h2>
-  <div class="card">
-    Staten Island is the birthplace of the Wu-Tang Clan, one of hip-hop’s most
-    influential groups. It has appeared in movies, TV shows, and comedy culture,
-    especially through modern NYC-based media.
-  </div>
-  <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e">
+<h2>Fun Facts</h2>
+<div class="facts">
+  <div class="fact">Staten Island is the least populated borough of NYC.</div>
+  <div class="fact">The Staten Island Ferry is completely free.</div>
+  <div class="fact">It has one of the largest landfills ever turned into a park.</div>
+  <div class="fact">Home to the Staten Island Museum.</div>
+</div>
 </section>
 
+<!-- QUIZ -->
 <section>
-  <h2>🏛 Politics</h2>
-  <div class="card">
-    Staten Island is known for having different political patterns compared
-    to other NYC boroughs, often leaning more conservative while still being
-    part of a largely progressive city.
-  </div>
+<h2>Staten Island Quiz</h2>
+<div id="quiz">
+  <h3 id="question"></h3>
+  <div id="options"></div>
+  <button onclick="nextQuestion()">Next</button>
+</div>
 </section>
 
-<section>
-  <h2>🎯 Staten Island Quiz (16 Questions)</h2>
-  <div class="card glow" id="quizBox"></div>
+<!-- CREDITS -->
+<section class="credits">
+<h2>Credits</h2>
+<p>
+Created by:<br>
+<!-- ✨ REPLACE THESE NAMES WITH THE ONES YOU GAVE ✨ -->
+Angel Okelola<br>
+[Stella, Eske, Johan and Tia]<br>
+</p>
 </section>
 
-<audio id="applause" src="https://cdn.pixabay.com/audio/2022/03/15/audio_1e5e1f93b7.mp3"></audio>
+<!-- AUDIO -->
+<audio id="applause" src="https://cdn.pixabay.com/audio/2022/03/15/audio_8b5c5f2c0f.mp3"></audio>
 
+<!-- SCRIPTS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-/* MAP */
-const map = L.map('map').setView([40.5795,-74.1502],11);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  attribution:'© OpenStreetMap'
-}).addTo(map);
-L.marker([40.5795,-74.1502]).addTo(map)
-  .bindPopup("Staten Island, NYC");
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-/* QUIZ */
-const questions = [
-["Which bridge connects Staten Island to Brooklyn?",["Verrazzano-Narrows Bridge","Brooklyn Bridge","Manhattan Bridge","Williamsburg Bridge"],0],
-["What ferry connects Staten Island to Manhattan?",["NYC Ferry","Staten Island Ferry","Liberty Ferry","Hudson Ferry"],1],
-["Which music group originated from Staten Island?",["Run-DMC","Wu-Tang Clan","Migos","OutKast"],1],
-["Staten Island is also called?",["The Green Borough","The Forgotten Borough","The Island Borough","The Harbor Borough"],1],
-["Which park replaced Fresh Kills landfill?",["Central Park","Freshkills Park","Liberty Park","Blue Park"],1],
-["What year did Staten Island join NYC?",["1905","1898","1870","1912"],1],
-["Which body of water surrounds Staten Island?",["Hudson River","East River","Upper New York Bay","All of these"],3],
-["Largest park on Staten Island?",["Clove Lakes","Freshkills Park","Silver Lake","High Rock"],1],
-["Which borough is closest to Staten Island?",["Queens","Brooklyn","Bronx","Manhattan"],1],
-["Main ferry terminal?",["South Ferry","St. George","Whitehall","Liberty"],1],
-["Staten Island is part of which state?",["New Jersey","New York","Connecticut","Pennsylvania"],1],
-["Who were original inhabitants?",["Iroquois","Lenape","Cherokee","Apache"],1],
-["Main bridge opened in 1964?",["Brooklyn Bridge","George Washington","Verrazzano","Williamsburg"],2],
-["Staten Island is known for being?",["Most rural","Most suburban","Most crowded","Most industrial"],1],
-["Which NYC mayor included Staten Island in 1898?",["Fiorello La Guardia","Robert Wagner","Consolidation Act","Tammany Hall"],2],
-["What color is the Staten Island Ferry?",["Blue","White","Orange","Green"],2]
+<script>
+// MAP (STARRY NIGHT STYLE)
+const map = L.map('map').setView([40.5795, -74.1502], 11);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+L.marker([40.5795, -74.1502]).addTo(map)
+  .bindPopup("Staten Island 🌌");
+
+// QUIZ DATA (16 QUESTIONS)
+const quizData = [
+{q:"Which city is Staten Island part of?", o:["Los Angeles","New York City","Chicago","Miami"], a:1},
+{q:"Which ferry serves Staten Island?", o:["Brooklyn Ferry","Queens Ferry","Staten Island Ferry","Harlem Ferry"], a:2},
+{q:"Is the Staten Island Ferry free?", o:["Yes","No"], a:0},
+{q:"Which ocean is nearby?", o:["Pacific","Atlantic","Indian","Arctic"], a:1},
+{q:"Which borough is least populated?", o:["Manhattan","Brooklyn","Staten Island","Queens"], a:2},
+{q:"Which state is Staten Island in?", o:["New Jersey","New York","California","Florida"], a:1},
+{q:"What color are NYC taxis?", o:["Red","Yellow","Blue","Green"], a:1},
+{q:"What park replaced the landfill?", o:["Central Park","Freshkills Park","Prospect Park","Liberty Park"], a:1},
+{q:"Which bridge connects Staten Island to Brooklyn?", o:["Brooklyn Bridge","Verrazzano-Narrows Bridge","Manhattan Bridge","Williamsburg"], a:1},
+{q:"Is Staten Island urban or suburban?", o:["Urban","Suburban","Both","Neither"], a:2},
+{q:"Which museum is located here?", o:["Louvre","Staten Island Museum","MoMA","British Museum"], a:1},
+{q:"Which river surrounds NYC?", o:["Amazon","Hudson","Nile","Danube"], a:1},
+{q:"Which borough is most green?", o:["Manhattan","Staten Island","Queens","Bronx"], a:1},
+{q:"Which country is NYC in?", o:["Canada","USA","UK","France"], a:1},
+{q:"Does Staten Island have beaches?", o:["Yes","No"], a:0},
+{q:"Is Staten Island quieter than Manhattan?", o:["Yes","No"], a:0}
 ];
 
-let current=0,score=0,wrong=[];
+let index = 0;
+let score = 0;
+let answers = [];
 
-function showQ(){
-  const q=questions[current];
-  let html=`<h3>Question ${current+1}/16</h3><p>${q[0]}</p>`;
-  q[1].forEach((opt,i)=>{
-    html+=`<button onclick="answer(${i})">${opt}</button>`;
+function loadQuestion() {
+  document.getElementById("question").innerText = quizData[index].q;
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+  quizData[index].o.forEach((opt,i)=>{
+    const div = document.createElement("div");
+    div.className="option";
+    div.innerText=opt;
+    div.onclick=()=>select(i);
+    optionsDiv.appendChild(div);
   });
-  document.getElementById("quizBox").innerHTML=html;
 }
 
-function answer(i){
-  if(i===questions[current][2]) score++;
-  else wrong.push({q:questions[current][0],a:questions[current][1][questions[current][2]]});
-  current++;
-  current<16?showQ():finish();
+function select(i){
+  answers[index]=i;
 }
 
-function finish(){
-  document.getElementById("applause").play();
-  for(let i=0;i<80;i++){
-    const c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"vw";
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),3000);
+function nextQuestion(){
+  if(answers[index]===quizData[index].a) score++;
+  index++;
+  if(index<quizData.length){
+    loadQuestion();
+  } else {
+    showResult();
   }
-  let html=`<h2>🎉 Score: ${score}/16</h2>`;
-  if(wrong.length){
-    html+="<h3>Wrong Answers:</h3><ul>";
-    wrong.forEach(w=>html+=`<li>${w.q} → <b>${w.a}</b></li>`);
-    html+="</ul>";
-  } else html+="<p>Perfect score! 🌟</p>";
-  document.getElementById("quizBox").innerHTML=html;
 }
 
-showQ();
+function showResult(){
+  document.getElementById("quiz").innerHTML =
+  `<h2>You scored ${score}/16</h2>` +
+  quizData.map((q,i)=>{
+    return answers[i]===q.a
+    ? `<p class="correct">✔ ${q.q}</p>`
+    : `<p class="wrong">✘ ${q.q}<br>Correct answer: ${q.o[q.a]}</p>`;
+  }).join("");
+
+  confetti();
+  document.getElementById("applause").play();
+}
+
+loadQuestion();
 </script>
 
 </body>
