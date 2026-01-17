@@ -2,95 +2,116 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Explore Staten Island</title>
+<title>Discover Staten Island</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b0d17;
-  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  background: #05060f;
+  color: #eaeaff;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url("https://images.unsplash.com/photo-1542224566-6e85f2e6772f") center/cover no-repeat;
+  position: relative;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+}
+.hero-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 3.8rem;
+  text-shadow: 0 0 15px #4da3ff, 0 0 40px #1f6fff;
+  animation: float 4s ease-in-out infinite;
+}
+.hero p {
+  margin-top: 15px;
+  opacity: 0.85;
+}
+@keyframes float {
+  50% { transform: translateY(-12px); }
 }
 
 section {
-  padding: 60px 20px;
   max-width: 1100px;
   margin: auto;
+  padding: 70px 20px;
 }
 
-h1, h2 {
+h2 {
   text-align: center;
+  margin-bottom: 40px;
+  color: #9cc9ff;
 }
 
-.hero {
-  height: 100vh;
-  background: url("https://images.unsplash.com/photo-1534447677768-be436bb09401") center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero h1 {
-  font-size: 3rem;
-  background: rgba(0,0,0,0.5);
-  padding: 20px;
-  border-radius: 20px;
-}
-
-#map {
-  height: 400px;
-  border-radius: 15px;
-}
-
-/* CARDS */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 25px;
 }
 
 .card {
-  background: #15182b;
-  padding: 20px;
-  border-radius: 15px;
+  background: #0d1025;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 0 20px rgba(77,163,255,0.08);
+}
+
+/* MAP */
+#map {
+  height: 420px;
+  border-radius: 18px;
 }
 
 /* TIMELINE */
 .timeline {
-  border-left: 3px solid #7f5af0;
-  padding-left: 20px;
+  border-left: 3px solid #4da3ff;
+  padding-left: 25px;
 }
 .timeline p {
-  margin: 20px 0;
+  margin: 25px 0;
 }
 
 /* QUIZ */
 #quiz {
-  background: #15182b;
-  padding: 30px;
-  border-radius: 20px;
+  background: #0d1025;
+  padding: 35px;
+  border-radius: 22px;
   text-align: center;
 }
-
 .option {
-  background: #0b0d17;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 10px;
+  background: #05060f;
+  margin: 12px 0;
+  padding: 16px;
+  border-radius: 12px;
   cursor: pointer;
+  transition: 0.3s;
 }
-
 .option:hover {
-  background: #7f5af0;
+  background: #1f6fff;
 }
+.wrong { color: #ff6b6b; }
 
-.correct { color: #2ecc71; }
-.wrong { color: #e74c3c; }
-
-.credits {
+footer {
   text-align: center;
+  padding: 40px;
   opacity: 0.8;
 }
 </style>
@@ -99,17 +120,13 @@ h1, h2 {
 <body>
 
 <!-- HERO -->
-<header class="hero">
-  <div class="hero-overlay">
-    <h1 class="glow">DISCOVER STATEN ISLAND</h1>
-    <p class="subtitle">
-      History • Culture • Politics • Map • Quiz
-    </p>
-    <p class="names">
-      By Angel Okelola · Stella · Tila · Eske · Johan
-    </p>
+<div class="hero">
+  <div class="hero-content">
+    <h1>DISCOVER STATEN ISLAND</h1>
+    <p>History • Culture • Politics • Timeline • Quiz</p>
+    <p>By Angel Okelola · Stella · Tila · Eske · Johan</p>
   </div>
-</header>
+</div>
 
 <!-- MAP -->
 <section>
@@ -121,10 +138,10 @@ h1, h2 {
 <section>
 <h2>Fun Facts</h2>
 <div class="grid">
-  <div class="card">The Staten Island Ferry is free.</div>
-  <div class="card">It is the least populated NYC borough.</div>
+  <div class="card">The Staten Island Ferry runs 24/7 and is completely free.</div>
+  <div class="card">It is the greenest borough with parks, beaches, and wetlands.</div>
   <div class="card">Freshkills Park was once the world’s largest landfill.</div>
-  <div class="card">Staten Island has beaches and forests.</div>
+  <div class="card">You get one of the best NYC skyline views from Staten Island.</div>
 </div>
 </section>
 
@@ -132,10 +149,9 @@ h1, h2 {
 <section>
 <h2>History</h2>
 <div class="card">
-<p>
-Staten Island was originally inhabited by the Lenape Native Americans.
-It was later colonized by the Dutch and became part of New York City in 1898.
-</p>
+Staten Island was originally home to the Lenape Native Americans.  
+In the 1600s, it was settled by the Dutch and later taken over by the British.  
+In 1898, Staten Island officially became one of the five boroughs of New York City.
 </div>
 </section>
 
@@ -143,10 +159,11 @@ It was later colonized by the Dutch and became part of New York City in 1898.
 <section>
 <h2>Timeline</h2>
 <div class="timeline">
-  <p><strong>1609:</strong> First European exploration</p>
-  <p><strong>1661:</strong> First settlement founded</p>
-  <p><strong>1898:</strong> Becomes part of NYC</p>
-  <p><strong>1964:</strong> Verrazzano-Narrows Bridge opens</p>
+<p><strong>1609:</strong> First European exploration.</p>
+<p><strong>1661:</strong> First permanent settlement.</p>
+<p><strong>1898:</strong> Staten Island joins NYC.</p>
+<p><strong>1964:</strong> Verrazzano-Narrows Bridge opens.</p>
+<p><strong>2001:</strong> Freshkills landfill closes.</p>
 </div>
 </section>
 
@@ -154,31 +171,24 @@ It was later colonized by the Dutch and became part of New York City in 1898.
 <section>
 <h2>Politics & Government</h2>
 <div class="card">
-<p>
-Staten Island is governed by New York City.
-It has a Borough President and representatives in the NYC Council.
-It is known for having more conservative voters compared to other boroughs.
-</p>
+Staten Island is governed as part of New York City and has a Borough President.  
+It is politically distinct, often voting more conservatively than other boroughs.  
+Residents are represented in the NYC Council and New York State government.
 </div>
 </section>
 
 <!-- QUIZ -->
 <section>
-<h2>Quiz: Test Your Knowledge</h2>
+<h2>Staten Island Quiz</h2>
 <div id="quiz">
   <h3 id="question"></h3>
   <div id="options"></div>
 </div>
 </section>
 
-<!-- CREDITS -->
-<section class="credits">
-<h2>Credits</h2>
-<p>
-Angel<br>
-[Stella,Eske,Johan,Tia]<br>
-</p>
-</section>
+<footer>
+© Presentation by Angel Okelola · Stella · Tila · Eske · Johan
+</footer>
 
 <audio id="applause" src="https://cdn.pixabay.com/audio/2022/03/15/audio_8b5c5f2c0f.mp3"></audio>
 
@@ -191,149 +201,60 @@ const map = L.map('map').setView([40.5795, -74.1502], 11);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 L.marker([40.5795, -74.1502]).addTo(map);
 
-// QUIZ (EASY CLICK)
-<script>
-const quizData = [
-{
-q: "Why did Staten Island officially become part of New York City in 1898?",
-options: ["For tourism growth", "To unify the five boroughs", "Because of population pressure"],
-answer: "To unify the five boroughs"
-},
-{
-q: "What role does the Staten Island Ferry play in daily life?",
-options: ["Tourist attraction only", "Main transportation link to Manhattan", "Private transport service"],
-answer: "Main transportation link to Manhattan"
-},
-{
-q: "Which event greatly improved Staten Island’s connection to Brooklyn?",
-options: ["Opening of Central Park", "Construction of the Verrazzano-Narrows Bridge", "Expansion of subway lines"],
-answer: "Construction of the Verrazzano-Narrows Bridge"
-},
-{
-q: "Why is Freshkills Park historically significant?",
-options: ["It was NYC’s first park", "It replaced a major landfill", "It hosted the World Fair"],
-answer: "It replaced a major landfill"
-},
-{
-q: "Compared to other boroughs, Staten Island is best described as:",
-options: ["Highly urbanized", "Mostly industrial", "More suburban and green"],
-answer: "More suburban and green"
-},
-{
-q: "Which Native American group originally lived on Staten Island?",
-options: ["Iroquois", "Lenape", "Cherokee"],
-answer: "Lenape"
-},
-{
-q: "What makes Staten Island politically different from many other NYC boroughs?",
-options: ["More conservative voting patterns", "No local government", "Independent political system"],
-answer: "More conservative voting patterns"
-},
-{
-q: "Why is Staten Island sometimes called the 'forgotten borough'?",
-options: ["It has no landmarks", "It is less connected by subway", "It was built last"],
-answer: "It is less connected by subway"
-},
-{
-q: "Which body governs Staten Island locally?",
-options: ["State Governor only", "Borough President and NYC Council", "Federal Government"],
-answer: "Borough President and NYC Council"
-},
-{
-q: "What geographic feature strongly shapes Staten Island’s identity?",
-options: ["Mountain ranges", "Surrounding waterways", "Desert climate"],
-answer: "Surrounding waterways"
-},
-{
-q: "Which industry historically influenced Staten Island’s economy?",
-options: ["Shipbuilding and ports", "Gold mining", "Oil drilling"],
-answer: "Shipbuilding and ports"
-},
-{
-q: "Why do many NYC residents visit Staten Island?",
-options: ["For beaches, parks, and views", "For Broadway shows", "For Wall Street"],
-answer: "For beaches, parks, and views"
-},
-{
-q: "How does Staten Island contribute to NYC’s environment?",
-options: ["It contains major green spaces", "It produces most electricity", "It controls water supply"],
-answer: "It contains major green spaces"
-},
-{
-q: "Which statement best describes Staten Island’s culture?",
-options: ["Only rural", "Only urban", "A mix of suburban and city life"],
-answer: "A mix of suburban and city life"
-},
-{
-q: "Why is the Staten Island Ferry important for tourism?",
-options: ["It offers free skyline views", "It connects to airports", "It is privately operated"],
-answer: "It offers free skyline views"
-},
-{
-q: "What major city can be clearly seen from Staten Island’s shoreline?",
-options: ["Boston", "New York City skyline", "Philadelphia"],
-answer: "New York City skyline"
-}
+// QUIZ
+const quiz = [
+{q:"Why did Staten Island join NYC in 1898?", o:["To unify the boroughs","For tourism","Due to war"], a:0},
+{q:"What connects Staten Island to Brooklyn?", o:["Verrazzano Bridge","Brooklyn Bridge","Queensboro Bridge"], a:0},
+{q:"Why is Freshkills Park important?", o:["Former landfill turned park","First NYC park","Zoo location"], a:0},
+{q:"Which group lived there first?", o:["Lenape","Vikings","Romans"], a:0},
+{q:"Why is Staten Island less crowded?", o:["More suburban design","Smaller size","No transport"], a:0},
+{q:"What ferry serves Staten Island?", o:["Staten Island Ferry","NY Ferry","East River Ferry"], a:0},
+{q:"What view is famous?", o:["NYC skyline","Niagara Falls","Mountains"], a:0},
+{q:"What makes its politics unique?", o:["More conservative voting","No government","Independent state"], a:0},
+{q:"Which park replaced the landfill?", o:["Freshkills Park","Central Park","Bryant Park"], a:0},
+{q:"Which bridge opened in 1964?", o:["Verrazzano","Golden Gate","Manhattan"], a:0},
+{q:"Which borough is greenest?", o:["Staten Island","Manhattan","Bronx"], a:0},
+{q:"What surrounds Staten Island?", o:["Waterways","Mountains","Deserts"], a:0},
+{q:"What is the ferry cost?", o:["Free","$5","$10"], a:0},
+{q:"Which city governs it?", o:["New York City","Albany","Washington DC"], a:0},
+{q:"What lifestyle best fits it?", o:["Suburban & urban mix","Only urban","Rural"], a:0},
+{q:"Why do tourists visit?", o:["Views & parks","Shopping malls","Theme parks"], a:0}
 ];
 
-let current = 0;
-let score = 0;
-let results = [];
-
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
-}
-
-function loadQuestion() {
-  if (current >= quizData.length) {
-    showResults();
+let i=0, score=0, answers=[];
+function shuffle(a){return a.sort(()=>Math.random()-0.5);}
+function load(){
+  if(i>=quiz.length){
+    quizBox.innerHTML=`<h2>You scored ${score}/16</h2>`;
+    answers.forEach(r=>{
+      if(!r.correct){
+        quizBox.innerHTML+=`<p class="wrong">❌ ${r.q}<br>Correct: ${r.a}</p>`;
+      }
+    });
+    confetti();
+    applause.play();
     return;
   }
-
-  const q = quizData[current];
-  document.getElementById("question").innerText = q.q;
-  const optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML = "";
-
-  const shuffledOptions = shuffle([...q.options]);
-
-  shuffledOptions.forEach(option => {
-    const div = document.createElement("div");
-    div.className = "option";
-    div.innerText = option;
-    div.onclick = () => {
-      results.push({
-        question: q.q,
-        chosen: option,
-        correct: q.answer
-      });
-      if (option === q.answer) score++;
-      current++;
-      loadQuestion();
+  question.textContent=quiz[i].q;
+  options.innerHTML="";
+  shuffle([...quiz[i].o]).forEach(opt=>{
+    const d=document.createElement("div");
+    d.className="option";
+    d.textContent=opt;
+    d.onclick=()=>{
+      answers.push({q:quiz[i].q,a:quiz[i].o[quiz[i].a],correct:opt===quiz[i].o[quiz[i].a]});
+      if(opt===quiz[i].o[quiz[i].a]) score++;
+      i++; load();
     };
-    optionsDiv.appendChild(div);
+    options.appendChild(d);
   });
 }
-
-function showResults() {
-  const quizBox = document.getElementById("quiz");
-  quizBox.innerHTML = `<h2>You scored ${score}/16</h2>`;
-
-  results.forEach(r => {
-    if (r.chosen !== r.correct) {
-      quizBox.innerHTML += `
-        <p class="wrong">
-        ❌ ${r.question}<br>
-        Your answer: ${r.chosen}<br>
-        Correct answer: ${r.correct}
-        </p>`;
-    }
-  });
-
-  confetti();
-  document.getElementById("applause").play();
-}
-
-loadQuestion();
+const quizBox=document.getElementById("quiz");
+const question=document.getElementById("question");
+const options=document.getElementById("options");
+const applause=document.getElementById("applause");
+load();
 </script>
 
+</body>
+</html>
