@@ -100,9 +100,17 @@ h1, h2 {
 <body>
 
 <!-- HERO -->
-<div class="hero">
-  <h1>Explore Staten Island</h1>
-</div>
+<header class="hero">
+  <div class="hero-overlay">
+    <h1 class="glow">DISCOVER STATEN ISLAND</h1>
+    <p class="subtitle">
+      History • Culture • Politics • Map • Quiz
+    </p>
+    <p class="names">
+      By Angel Okelola · Stella · Tila · Eske · Johan
+    </p>
+  </div>
+</header>
 
 <!-- MAP -->
 <section>
@@ -185,64 +193,148 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').add
 L.marker([40.5795, -74.1502]).addTo(map);
 
 // QUIZ (EASY CLICK)
-const quiz = [
-{q:"Which city is Staten Island part of?", o:["NYC","LA","Chicago"], a:0},
-{q:"Is the Staten Island Ferry free?", o:["Yes","No"], a:0},
-{q:"Which bridge connects Staten Island?", o:["Verrazzano","Brooklyn","Manhattan"], a:0},
-{q:"Which park replaced the landfill?", o:["Freshkills","Central","Prospect"], a:0},
-{q:"Which borough is least populated?", o:["Staten Island","Queens","Bronx"], a:0},
-{q:"Which country is it in?", o:["USA","UK","Canada"], a:0},
-{q:"Does it have beaches?", o:["Yes","No"], a:0},
-{q:"What ocean is nearby?", o:["Atlantic","Pacific","Indian"], a:0},
-{q:"When did it join NYC?", o:["1898","1800","2000"], a:0},
-{q:"Is it greener than Manhattan?", o:["Yes","No"], a:0},
-{q:"Who lived there first?", o:["Lenape","Romans","Vikings"], a:0},
-{q:"Is it urban or suburban?", o:["Both","Urban","Rural"], a:0},
-{q:"Which state?", o:["New York","New Jersey","Florida"], a:0},
-{q:"Which ferry serves it?", o:["Staten Island Ferry","Queens Ferry","NY Ferry"], a:0},
-{q:"Is it quieter than Manhattan?", o:["Yes","No"], a:0},
-{q:"Does it have a Borough President?", o:["Yes","No"], a:0}
+<script>
+const quizData = [
+{
+q: "Why did Staten Island officially become part of New York City in 1898?",
+options: ["For tourism growth", "To unify the five boroughs", "Because of population pressure"],
+answer: "To unify the five boroughs"
+},
+{
+q: "What role does the Staten Island Ferry play in daily life?",
+options: ["Tourist attraction only", "Main transportation link to Manhattan", "Private transport service"],
+answer: "Main transportation link to Manhattan"
+},
+{
+q: "Which event greatly improved Staten Island’s connection to Brooklyn?",
+options: ["Opening of Central Park", "Construction of the Verrazzano-Narrows Bridge", "Expansion of subway lines"],
+answer: "Construction of the Verrazzano-Narrows Bridge"
+},
+{
+q: "Why is Freshkills Park historically significant?",
+options: ["It was NYC’s first park", "It replaced a major landfill", "It hosted the World Fair"],
+answer: "It replaced a major landfill"
+},
+{
+q: "Compared to other boroughs, Staten Island is best described as:",
+options: ["Highly urbanized", "Mostly industrial", "More suburban and green"],
+answer: "More suburban and green"
+},
+{
+q: "Which Native American group originally lived on Staten Island?",
+options: ["Iroquois", "Lenape", "Cherokee"],
+answer: "Lenape"
+},
+{
+q: "What makes Staten Island politically different from many other NYC boroughs?",
+options: ["More conservative voting patterns", "No local government", "Independent political system"],
+answer: "More conservative voting patterns"
+},
+{
+q: "Why is Staten Island sometimes called the 'forgotten borough'?",
+options: ["It has no landmarks", "It is less connected by subway", "It was built last"],
+answer: "It is less connected by subway"
+},
+{
+q: "Which body governs Staten Island locally?",
+options: ["State Governor only", "Borough President and NYC Council", "Federal Government"],
+answer: "Borough President and NYC Council"
+},
+{
+q: "What geographic feature strongly shapes Staten Island’s identity?",
+options: ["Mountain ranges", "Surrounding waterways", "Desert climate"],
+answer: "Surrounding waterways"
+},
+{
+q: "Which industry historically influenced Staten Island’s economy?",
+options: ["Shipbuilding and ports", "Gold mining", "Oil drilling"],
+answer: "Shipbuilding and ports"
+},
+{
+q: "Why do many NYC residents visit Staten Island?",
+options: ["For beaches, parks, and views", "For Broadway shows", "For Wall Street"],
+answer: "For beaches, parks, and views"
+},
+{
+q: "How does Staten Island contribute to NYC’s environment?",
+options: ["It contains major green spaces", "It produces most electricity", "It controls water supply"],
+answer: "It contains major green spaces"
+},
+{
+q: "Which statement best describes Staten Island’s culture?",
+options: ["Only rural", "Only urban", "A mix of suburban and city life"],
+answer: "A mix of suburban and city life"
+},
+{
+q: "Why is the Staten Island Ferry important for tourism?",
+options: ["It offers free skyline views", "It connects to airports", "It is privately operated"],
+answer: "It offers free skyline views"
+},
+{
+q: "What major city can be clearly seen from Staten Island’s shoreline?",
+options: ["Boston", "New York City skyline", "Philadelphia"],
+answer: "New York City skyline"
+}
 ];
 
-let i = 0, score = 0, userAnswers = [];
+let current = 0;
+let score = 0;
+let results = [];
 
-function loadQuiz(){
-  if(i >= quiz.length){
-    document.getElementById("quiz").innerHTML =
-      `<h2>You scored ${score}/16</h2>` +
-      quiz.map((q,idx)=>
-        userAnswers[idx]===q.a
-        ? `<p class="correct">✔ ${q.q}</p>`
-        : `<p class="wrong">✘ ${q.q}<br>Correct: ${q.o[q.a]}</p>`
-      ).join("");
-    confetti();
-    document.getElementById("applause").play();
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function loadQuestion() {
+  if (current >= quizData.length) {
+    showResults();
     return;
   }
 
-  document.getElementById("question").innerText = quiz[i].q;
-  const optDiv = document.getElementById("options");
-  optDiv.innerHTML = "";
+  const q = quizData[current];
+  document.getElementById("question").innerText = q.q;
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
 
-  quiz[i].o.forEach((opt,idx)=>{
-    const d = document.createElement("div");
-    d.className="option";
-    d.innerText=opt;
-    d.onclick=()=>{
-      userAnswers[i]=idx;
-      if(idx===quiz[i].a) score++;
-      i++;
-      loadQuiz();
+  const shuffledOptions = shuffle([...q.options]);
+
+  shuffledOptions.forEach(option => {
+    const div = document.createElement("div");
+    div.className = "option";
+    div.innerText = option;
+    div.onclick = () => {
+      results.push({
+        question: q.q,
+        chosen: option,
+        correct: q.answer
+      });
+      if (option === q.answer) score++;
+      current++;
+      loadQuestion();
     };
-    optDiv.appendChild(d);
+    optionsDiv.appendChild(div);
   });
 }
 
-loadQuiz();
+function showResults() {
+  const quizBox = document.getElementById("quiz");
+  quizBox.innerHTML = `<h2>You scored ${score}/16</h2>`;
+
+  results.forEach(r => {
+    if (r.chosen !== r.correct) {
+      quizBox.innerHTML += `
+        <p class="wrong">
+        ❌ ${r.question}<br>
+        Your answer: ${r.chosen}<br>
+        Correct answer: ${r.correct}
+        </p>`;
+    }
+  });
+
+  confetti();
+  document.getElementById("applause").play();
+}
+
+loadQuestion();
 </script>
 
-</body>
-</html>
-
-
- 
