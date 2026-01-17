@@ -1,279 +1,287 @@
 <!DOCTYPE html>
-<section class="hero">
-  <h1>Discover Staten Island</h1>
-  <p>Angel • Stella • Tia • Eske • Johan</p>
-</section>
-
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Discover Staten Island</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Discover Staten Island</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
 
-    body {
-      background: linear-gradient(180deg, #0b0f1a, #0f172a);
-      color: #e5e7eb;
-      scroll-behavior: smooth;
-    }
+body{
+  background:#0b1020;
+  color:#e5e7eb;
+}
 
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 15px;
-      z-index: 1000;
-    }
+section{
+  padding:90px 8%;
+}
 
-    nav a {
-      color: #c7d2fe;
-      text-decoration: none;
-      font-weight: 600;
-    }
+h2{
+  text-align:center;
+  font-size:2.6rem;
+  margin-bottom:50px;
+  letter-spacing:2px;
+}
 
-    nav a:hover {
-      color: #fff;
-    }
+/* HERO */
+.hero{
+  height:100vh;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,.9)),
+    url("https://images.unsplash.com/photo-1563720223523-491ff046a8a3") center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
 
-    header {
-      height: 100vh;
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,.9)),
-        url("images/freshkills.jpg") center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+.hero h1{
+  font-size:4rem;
+  letter-spacing:4px;
+}
 
-    header h1 {
-      font-size: 4rem;
-      letter-spacing: 4px;
-    }
+.hero p{
+  margin-top:15px;
+  color:#a5b4fc;
+  font-size:1.2rem;
+}
 
-    header p {
-      margin-top: 20px;
-      color: #a5b4fc;
-      font-size: 1.2rem;
-    }
+/* ANIMATION */
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s ease;
+}
 
-    section {
-      padding: 100px 8%;
-    }
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
 
-    h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 50px;
-    }
+/* CARDS */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;
-    }
+.card{
+  background:#111827;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  transition:.4s;
+}
 
-    .card {
-      background: rgba(255,255,255,0.05);
-      border-radius: 15px;
-      overflow: hidden;
-      transition: transform .3s;
-    }
+.card:hover{
+  transform:translateY(-10px) scale(1.02);
+}
 
-    .card:hover {
-      transform: translateY(-8px);
-    }
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
 
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
+.card p{
+  padding:20px;
+  font-size:.95rem;
+}
 
-    .card p {
-      padding: 20px;
-      font-size: 0.95rem;
-    }
+/* QUIZ */
+.quiz-box{
+  max-width:800px;
+  margin:auto;
+  background:#111827;
+  padding:40px;
+  border-radius:20px;
+}
 
-    /* QUIZ */
-    .quiz-box {
-      max-width: 700px;
-      margin: auto;
-      background: rgba(255,255,255,0.05);
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-    }
+.quiz-question{
+  font-size:1.4rem;
+  margin-bottom:25px;
+}
 
-    .quiz-question {
-      font-size: 1.3rem;
-      margin-bottom: 30px;
-    }
+.option{
+  background:#1f2933;
+  padding:15px;
+  border-radius:10px;
+  margin:10px 0;
+  cursor:pointer;
+}
 
-    .option {
-      display: block;
-      background: #1e293b;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: left;
-    }
+.option:hover{
+  background:#374151;
+}
 
-    .option:hover {
-      background: #334155;
-    }
+.result{
+  margin-top:30px;
+  line-height:1.6;
+}
 
-    .result {
-      margin-top: 30px;
-      text-align: left;
-    }
+/* MAP */
+.map iframe{
+  width:100%;
+  height:450px;
+  border-radius:20px;
+  border:none;
+}
 
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: #94a3b8;
-    }
-  </style>
+/* FOOTER */
+footer{
+  background:#020617;
+  padding:40px;
+  text-align:center;
+  color:#9ca3af;
+}
+</style>
 </head>
 
 <body>
 
-<nav>
-  <a href="#history">History</a>
-  <a href="#facts">Fun Facts</a>
-  <a href="#quiz">Quiz</a>
-</nav>
-
-<header>
+<!-- HERO -->
+<section class="hero">
   <div>
     <h1>DISCOVER STATEN ISLAND</h1>
-    <p>By Angel · Stella · Tia · Eske · Johan</p>
+    <p>Angel · Stella · Tia · Eske · Johan</p>
   </div>
-</header>
+</section>
 
-<section id="history">
+<!-- HISTORY -->
+<section class="fade">
   <h2>History</h2>
-  <p style="text-align:center; max-width:800px; margin:auto;">
-    Staten Island has a rich history dating back to Native American settlements,
-    Dutch colonization, and its important role during the American Revolution.
+  <p style="max-width:900px;margin:auto;text-align:center;">
+    Staten Island has a long history beginning with Native American tribes,
+    followed by Dutch and British settlement. It played an important role during
+    the American Revolution, especially at the Conference House.
   </p>
 </section>
 
-<section id="facts">
+<!-- SIGHTS -->
+<section class="fade">
+  <h2>Famous Sights</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1587492353623-22c27b3476df">
+      <p><strong>Staten Island Ferry</strong><br>Free ride with skyline views.</p>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1617201890638-ec1c07c9bb6b">
+      <p><strong>Freshkills Park</strong><br>One of NYC’s largest parks.</p>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
+      <p><strong>Conference House</strong><br>Historic peace meeting site.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POP CULTURE -->
+<section class="fade">
+  <h2>Pop Culture</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d">
+      <p>Staten Island is famous for hip-hop culture and music legends.</p>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade">
+      <p>Movies and TV shows have featured Staten Island.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUN FACTS -->
+<section class="fade">
   <h2>Fun Facts</h2>
   <div class="cards">
     <div class="card">
-      <img src="images/freshkills.jpg" alt="Freshkills Park">
-      <p>Freshkills Park is one of the largest parks in New York City.</p>
+      <img src="https://images.unsplash.com/photo-1549921296-3ecf2a6c6f32">
+      <p>Least populated NYC borough.</p>
     </div>
-
     <div class="card">
-      <img src="images/zoo.jpg" alt="Staten Island Zoo">
-      <p>Staten Island is home to its own zoo.</p>
-    </div>
-
-    <div class="card">
-      <img src="images/conference.jpg" alt="Conference House">
-      <p>The Conference House hosted a Revolutionary War peace meeting.</p>
+      <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1">
+      <p>More green space than many boroughs.</p>
     </div>
   </div>
 </section>
 
-<section id="quiz">
-  <h2>Quiz (16 Questions)</h2>
-  <div class="quiz-box">
-    <div class="quiz-question" id="question"></div>
-    <div id="options"></div>
-    <div class="result" id="result"></div>
-  </div>
+<!-- QUIZ -->
+<section class="fade">
+<h2>Quiz (16 Questions)</h2>
+<div class="quiz-box">
+  <div class="quiz-question" id="q"></div>
+  <div id="opts"></div>
+  <div class="result" id="res"></div>
+</div>
+</section>
+
+<!-- MAP -->
+<section class="fade map">
+  <h2>Map</h2>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48332.889!2d-74.1502!3d40.5795"></iframe>
 </section>
 
 <footer>
-  © Discover Staten Island Presentation
+© Discover Staten Island Presentation
 </footer>
 
 <script>
-const quiz = [
-  {
-    q: "What borough is Staten Island?",
-    options: [
-      "A. Manhattan",
-      "B. Brooklyn",
-      "C. Staten Island",
-      "D. Queens"
-    ],
-    answer: 2
-  },
-  {
-    q: "Which park is one of the largest in NYC?",
-    options: [
-      "A. Central Park",
-      "B. Freshkills Park",
-      "C. Prospect Park",
-      "D. Battery Park"
-    ],
-    answer: 1
-  },
-  {
-    q: "What famous house is on Staten Island?",
-    options: [
-      "A. White House",
-      "B. Conference House",
-      "C. City Hall",
-      "D. Gracie Mansion"
-    ],
-    answer: 1
-  }
+const quiz=[
+["Which borough is Staten Island?","A. Manhattan","B. Brooklyn","C. Staten Island","D. Queens",2],
+["Which ferry is free?","A. Brooklyn Ferry","B. Staten Island Ferry","C. Hudson Ferry","D. Queens Ferry",1],
+["Largest park on Staten Island?","A. Central Park","B. Freshkills Park","C. Prospect Park","D. Battery Park",1],
+["Historic peace meeting site?","A. City Hall","B. White House","C. Conference House","D. Pentagon",2],
+["Least populated borough?","A. Bronx","B. Queens","C. Staten Island","D. Manhattan",2],
+["Connected to Manhattan by?","A. Tunnel","B. Ferry","C. Bridge","D. Train",1],
+["Known music culture?","A. Jazz","B. Classical","C. Hip-hop","D. Opera",2],
+["Which city is Staten Island part of?","A. LA","B. Chicago","C. NYC","D. Miami",2],
+["Water around Staten Island?","A. Pacific","B. Atlantic","C. Hudson","D. Indian",1],
+["Green borough fact?","A. Desert","B. Forest","C. Parks","D. Mountains",2],
+["Conference House era?","A. Civil War","B. WWI","C. Revolution","D. WWII",2],
+["Ferry view shows?","A. Brooklyn","B. Skyline","C. Bronx","D. Harlem",1],
+["NYC borough count?","A. 3","B. 4","C. 5","D. 6",2],
+["Island name origin?","A. Dutch","B. Spanish","C. French","D. German",0],
+["Zoo located here?","A. Yes","B. No","C. Maybe","D. Unknown",0],
+["Presentation creators?","A. Students","B. Teachers","C. Tourists","D. Bots",0]
 ];
 
-let current = 0;
-let answers = [];
-
-function loadQuestion() {
-  document.getElementById("question").textContent = quiz[current].q;
-  const optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML = "";
-
-  quiz[current].options.forEach((opt, i) => {
-    const btn = document.createElement("div");
-    btn.className = "option";
-    btn.textContent = opt;
-    btn.onclick = () => {
-      answers.push(i);
-      current++;
-      current < quiz.length ? loadQuestion() : showResults();
-    };
-    optionsDiv.appendChild(btn);
-  });
+let i=0,answers=[];
+function load(){
+  q.innerText=quiz[i][0];
+  opts.innerHTML="";
+  for(let j=1;j<=4;j++){
+    let d=document.createElement("div");
+    d.className="option";
+    d.innerText=quiz[i][j];
+    d.onclick=()=>{answers.push(j-1);i++;i<quiz.length?load():show();}
+    opts.appendChild(d);
+  }
 }
-
-function showResults() {
-  document.getElementById("question").textContent = "Quiz Completed 🎉";
-  document.getElementById("options").innerHTML = "";
-
-  let output = "<h3>Correct Answers:</h3><ul>";
-  quiz.forEach((q, i) => {
-    output += `<li>${q.q} → ${q.options[q.answer]}</li>`;
-  });
-  output += "</ul>";
-
-  document.getElementById("result").innerHTML = output;
+function show(){
+  q.innerText="Quiz Completed 🎉";
+  opts.innerHTML="";
+  let out="<strong>Correct Answers:</strong><br>";
+  quiz.forEach(x=>out+=x[0]+" → "+x[x[5]+1]+"<br>");
+  res.innerHTML=out;
 }
+load();
 
-loadQuestion();
+/* fade */
+const f=document.querySelectorAll(".fade");
+window.addEventListener("scroll",()=>f.forEach(e=>{
+  if(e.getBoundingClientRect().top<window.innerHeight-100)e.classList.add("show");
+}));
 </script>
 
 </body>
 </html>
+
+
+    
