@@ -1,7 +1,20 @@
 
 .hero {
   height: 100vh;
-  background-image: url("images/conference.jpg");
+  background-image: url("conference.jpg");
   background-size: cover;
   background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: white;
+}
+.hero p {
+  color: #ddd;
 }
