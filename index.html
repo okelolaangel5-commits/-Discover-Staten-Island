@@ -1,376 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Discover Staten Island — Presentation by Angel, Stella, Tia, Eske & Johan</title>
+  <meta charset="UTF-8">
+  <title>Discover Staten Island</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ===== CSS ===== -->
   <style>
-    :root{
-      --bg:#0b0f14;
-      --bg-soft:#0f1524;
-      --card:#121a2f;
-      --accent:#4cc9f0;
-      --accent-2:#80ffdb;
-      --text:#e8ebf1;
-      --muted:#9aa4b2;
-      --border:#1f2a44;
-      --shadow:0 20px 40px rgba(0,0,0,.45);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
     }
 
-    *{box-sizing:border-box; margin:0; padding:0}
-
-    body{
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:linear-gradient(180deg,var(--bg),#0d1322);
-      color:var(--text);
-      line-height:1.7;
+    body {
+      background: linear-gradient(180deg, #0b0f1a, #0f172a);
+      color: #e5e7eb;
+      scroll-behavior: smooth;
     }
 
-    /* ===== NAV ===== */
-    nav{
-      position:sticky; top:0; z-index:100;
-      background:rgba(11,15,20,.7);
-      backdrop-filter:blur(12px);
-      border-bottom:1px solid var(--border);
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px;
+      z-index: 1000;
     }
-    nav ul{
-      display:flex; gap:22px; list-style:none;
-      padding:14px 24px; overflow-x:auto;
-    }
-    nav a{
-      color:var(--text); text-decoration:none;
-      font-weight:500; opacity:.85;
-    }
-    nav a:hover{opacity:1; color:var(--accent)}
 
-    /* ===== HERO ===== */
-    header{
-      min-height:92vh;
-      display:grid; place-items:center;
-      text-align:center;
-      padding:40px 20px;
+    nav a {
+      color: #c7d2fe;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    header {
+      height: 100vh;
       background:
-        linear-gradient(180deg,rgba(11,15,20,.85),rgba(11,15,20,.95)),
-        url('https://upload.wikimedia.org/wikipedia/commons/7/7a/Staten_Island_Ferry.jpg') center/cover no-repeat;
-    }
-    header h1{
-      font-size:clamp(2.8rem,6vw,4.8rem);
-      letter-spacing:.28em;
-      margin-bottom:18px;
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      text-shadow:0 10px 35px rgba(76,201,240,.35);
-    }
-    header h2{
-      font-weight:400;
-      color:var(--muted);
-      margin-bottom:30px;
-    }
-    .credits{
-      display:inline-block;
-      padding:14px 26px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(18,26,47,.6);
-      box-shadow:var(--shadow);
-      font-size:.95rem;
-      color:var(--muted);
+        linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,.9)),
+        url("images/freshkills.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
-    /* ===== SECTIONS ===== */
-    section{padding:90px 20px}
-    .container{max-width:1150px; margin:auto}
-
-    h3.section-title{
-      font-size:clamp(1.8rem,4vw,2.6rem);
-      margin-bottom:40px;
-      text-align:center;
+    header h1 {
+      font-size: 4rem;
+      letter-spacing: 4px;
     }
 
-    /* ===== GRID & CARDS ===== */
-    .grid{
-      display:grid; gap:26px;
-    }
-    .grid-3{
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    }
-    .card{
-      background:linear-gradient(180deg,var(--card),var(--bg-soft));
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:18px;
-      box-shadow:var(--shadow);
-      transition:transform .35s ease, box-shadow .35s ease;
-    }
-    .card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 30px 60px rgba(0,0,0,.6);
-    }
-    .card img{
-      width:100%; height:170px; object-fit:cover;
-      border-radius:14px; margin-bottom:14px;
-    }
-    .card h4{margin-bottom:6px}
-    .card p{color:var(--muted); font-size:.95rem}
-
-    /* ===== TIMELINE ===== */
-    .timeline{
-      max-width:900px; margin:auto;
-      border-left:3px solid var(--accent);
-      padding-left:26px;
-    }
-    .timeline .event{
-      margin-bottom:28px;
-      position:relative;
-    }
-    .timeline .event::before{
-      content:"";
-      position:absolute;
-      left:-14px; top:6px;
-      width:14px; height:14px;
-      background:var(--accent);
-      border-radius:50%;
+    header p {
+      margin-top: 20px;
+      color: #a5b4fc;
+      font-size: 1.2rem;
     }
 
-    /* ===== MAP ===== */
-    iframe{
-      width:100%; height:420px;
-      border-radius:22px;
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
+    section {
+      padding: 100px 8%;
     }
 
-    /* ===== QUIZ PLACEHOLDER ===== */
-    .quiz-box{
-      max-width:720px; margin:auto;
-      padding:28px;
-      border-radius:22px;
-      background:linear-gradient(180deg,var(--card),var(--bg-soft));
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-      text-align:center;
-    }
-    .quiz-box p{color:var(--muted)}
-
-    /* ===== FOOTER ===== */
-    footer{
-      padding:50px 20px;
-      border-top:1px solid var(--border);
-      text-align:center;
-      color:var(--muted);
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 50px;
     }
 
-    /* ===== FADE EFFECT ===== */
-    .fade{opacity:0; transform:translateY(26px); transition:.9s ease}
-    .fade.show{opacity:1; transform:none}
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card p {
+      padding: 20px;
+      font-size: 0.95rem;
+    }
+
+    /* QUIZ */
+    .quiz-box {
+      max-width: 700px;
+      margin: auto;
+      background: rgba(255,255,255,0.05);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .quiz-question {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+    }
+
+    .option {
+      display: block;
+      background: #1e293b;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .option:hover {
+      background: #334155;
+    }
+
+    .result {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #94a3b8;
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- ===== NAV ===== -->
-  <nav>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#history">History</a></li>
-      <li><a href="#sights">Sights</a></li>
-      <li><a href="#culture">Pop Culture</a></li>
-      <li><a href="#facts">Fun Facts</a></li>
-      <li><a href="#map">Map</a></li>
-      <li><a href="#quiz">Quiz</a></li>
-    </ul>
-  </nav>
+<nav>
+  <a href="#history">History</a>
+  <a href="#facts">Fun Facts</a>
+  <a href="#quiz">Quiz</a>
+</nav>
 
-  <!-- ===== HERO ===== -->
-  <header id="home">
-    <div class="container">
-      <h1>DISCOVER STATEN ISLAND</h1>
-      <h2>A Spectacular Presentation</h2>
-      <div class="credits">Presented by Angel · Stella · Tia · Eske · Joan</div>
+<header>
+  <div>
+    <h1>DISCOVER STATEN ISLAND</h1>
+    <p>By Angel · Stella · Tia · Eske · Johan</p>
+  </div>
+</header>
+
+<section id="history">
+  <h2>History</h2>
+  <p style="text-align:center; max-width:800px; margin:auto;">
+    Staten Island has a rich history dating back to Native American settlements,
+    Dutch colonization, and its important role during the American Revolution.
+  </p>
+</section>
+
+<section id="facts">
+  <h2>Fun Facts</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="images/freshkills.jpg" alt="Freshkills Park">
+      <p>Freshkills Park is one of the largest parks in New York City.</p>
     </div>
-  </header>
 
-  <!-- ===== HISTORY ===== -->
-  <section id="history">
-    <div class="container fade">
-      <h3 class="section-title">History Timeline</h3>
-      <div class="timeline">
-        <div class="event"><strong>1609</strong> — Henry Hudson explores the area.</div>
-        <div class="event"><strong>1661</strong> — First permanent European settlement.</div>
-        <div class="event"><strong>1898</strong> — Staten Island becomes a NYC borough.</div>
-        <div class="event"><strong>1965</strong> — Verrazzano-Narrows Bridge opens.</div>
-      </div>
+    <div class="card">
+      <img src="images/zoo.jpg" alt="Staten Island Zoo">
+      <p>Staten Island is home to its own zoo.</p>
     </div>
-  </section>
 
-  <!-- ===== SIGHTS ===== -->
-  <section id="sights">
-    <div class="container fade">
-      <h3 class="section-title">Famous Sights</h3>
-      <div class="grid grid-3">
-        <div class="card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Staten_Island_Ferry.jpg" />
-          <h4>Staten Island Ferry</h4>
-          <p>Free ferry with stunning views of NYC and the Statue of Liberty.</p>
-        </div>
-        <div class="card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Verrazzano-Narrows_Bridge.jpg" />
-          <h4>Verrazzano Bridge</h4>
-          <p>Iconic bridge connecting Staten Island to Brooklyn.</p>
-        </div>
-        <div class="card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Snug_Harbor.jpg" />
-          <h4>Snug Harbor</h4>
-          <p>Cultural center with museums, gardens, and events.</p>
-        </div>
-      </div>
+    <div class="card">
+      <img src="images/conference.jpg" alt="Conference House">
+      <p>The Conference House hosted a Revolutionary War peace meeting.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== POP CULTURE ===== -->
-  <section id="culture">
-    <div class="container fade">
-      <h3 class="section-title">Pop Culture</h3>
-      <div class="grid grid-3">
-        <div class="card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Wu-Tang_Clan.jpg" />
-          <h4>Wu-Tang Clan</h4>
-          <p>World-famous hip-hop group originating from Staten Island.</p>
-        </div>
-        <div class="card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Staten_Island_Museum.jpg" />
-          <h4>Arts & Museums</h4>
-          <p>Strong artistic culture with museums and galleries.</p>
-        </div>
-        <div class="card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Saturday_Night_Live.jpg" />
-          <h4>Film & TV</h4>
-          <p>Referenced in movies, TV shows, and comedy culture.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<section id="quiz">
+  <h2>Quiz (16 Questions)</h2>
+  <div class="quiz-box">
+    <div class="quiz-question" id="question"></div>
+    <div id="options"></div>
+    <div class="result" id="result"></div>
+  </div>
+</section>
 
-  <!-- ===== FUN FACTS ===== -->
-  <section id="facts">
-    <div class="container fade">
-      <h3 class="section-title">Fun Facts</h3>
-      <div class="grid grid-3">
-        <div class="card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Freshkills_Park.jpg" />
-          <p>Freshkills Park is one of the largest parks in New York City.</p>
-        </div>
-        <div class="card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Staten_Island_Zoo.jpg" />
-          <p>Staten Island is home to its own zoo.</p>
-        </div>
-        <div class="card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Conference_House.jpg" />
-          <p>The Conference House hosted a Revolutionary War peace meeting.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<footer>
+  © Discover Staten Island Presentation
+</footer>
 
-  <!-- ===== MAP ===== -->
-  <section id="map">
-    <div class="container fade">
-      <h3 class="section-title">Where Is Staten Island?</h3>
-      <iframe loading="lazy" allowfullscreen src="https://www.google.com/maps?q=Staten%20Island%20NY&output=embed"></iframe>
-    </div>
-  </section>
+<script>
+const quiz = [
+  {
+    q: "What borough is Staten Island?",
+    options: [
+      "A. Manhattan",
+      "B. Brooklyn",
+      "C. Staten Island",
+      "D. Queens"
+    ],
+    answer: 2
+  },
+  {
+    q: "Which park is one of the largest in NYC?",
+    options: [
+      "A. Central Park",
+      "B. Freshkills Park",
+      "C. Prospect Park",
+      "D. Battery Park"
+    ],
+    answer: 1
+  },
+  {
+    q: "What famous house is on Staten Island?",
+    options: [
+      "A. White House",
+      "B. Conference House",
+      "C. City Hall",
+      "D. Gracie Mansion"
+    ],
+    answer: 1
+  }
+];
 
-  <!-- ===== QUIZ ===== -->
-  <section id="quiz">
-    <div class="container fade">
-      <h3 class="section-title">Staten Island Quiz</h3>
-      <div class="quiz-box" id="quizBox">
-        <p class="progress" id="progress">Question 1 of 16</p>
-        <h4 id="question">Question text</h4>
-        <div id="options"></div>
-        <button id="nextBtn" style="display:none;margin-top:14px">Next</button>
-      </div>
-      <p style="text-align:center;margin-top:14px" class="muted">Created by Angel, Stella, Tia, Eske & Joan</p>
-    </div>
-  </section>
+let current = 0;
+let answers = [];
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <p>© Presentation Project — Angel · Stella · Tia · Eske · Joan</p>
-    <p>Discover Staten Island</p>
-  </footer>
+function loadQuestion() {
+  document.getElementById("question").textContent = quiz[current].q;
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
 
-  <!-- ===== SIMPLE FADE SCRIPT ===== -->
-  <script>
-    const fades = document.querySelectorAll('.fade');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){ entry.target.classList.add('show'); }
-      });
-    }, {threshold:0.15});
-    fades.forEach(f => observer.observe(f));
-  </script>
-
-  <!-- ===== QUIZ SCRIPT ===== -->
-  <script>
-    const quizData = [
-      {q:"Which ferry is famous in Staten Island?", o:["Brooklyn Ferry","Staten Island Ferry","Hudson Ferry","Queens Ferry"], a:1},
-      {q:"Which city does Staten Island belong to?", o:["Boston","New York City","Chicago","Washington DC"], a:1},
-      {q:"Which bridge connects Staten Island to Brooklyn?", o:["Brooklyn Bridge","Manhattan Bridge","Verrazzano-Narrows Bridge","Queensboro Bridge"], a:2},
-      {q:"What is Staten Island also called?", o:["The Bronx","Richmond Borough","Liberty Island","Harbor Island"], a:1},
-      {q:"Which park is one of the largest in NYC?", o:["Central Park","Freshkills Park","Prospect Park","Battery Park"], a:1},
-      {q:"Which hip-hop group comes from Staten Island?", o:["NWA","Wu-Tang Clan","Migos","Run DMC"], a:1},
-      {q:"Which ferry is free for passengers?", o:["East River Ferry","Staten Island Ferry","Hudson Ferry","Brooklyn Ferry"], a:1},
-      {q:"Which ocean is near Staten Island?", o:["Pacific","Indian","Atlantic","Arctic"], a:2},
-      {q:"Which year did Staten Island become a NYC borough?", o:["1800","1850","1898","1920"], a:2},
-      {q:"What famous statue can be seen from the ferry?", o:["Statue of Liberty","Lincoln Memorial","Big Apple","Times Square"], a:0},
-      {q:"Which zoo is located on Staten Island?", o:["Bronx Zoo","Central Park Zoo","Staten Island Zoo","Queens Zoo"], a:2},
-      {q:"Which cultural center is in Staten Island?", o:["MoMA","Snug Harbor","The Met","Guggenheim"], a:1},
-      {q:"Which borough has the smallest population?", o:["Brooklyn","Queens","Manhattan","Staten Island"], a:3},
-      {q:"Which bridge opened in 1965?", o:["Brooklyn Bridge","Verrazzano Bridge","Manhattan Bridge","George Washington Bridge"], a:1},
-      {q:"What type of presentation is this website?", o:["Game","Digital presentation","Blog","Shop"], a:1},
-      {q:"Who created this presentation?", o:["One student","Teachers","Angel, Stella, Tia, Eske & Johan","NYC Government"], a:2}
-    ];
-
-    let current = 0;
-    let score = 0;
-    const questionEl = document.getElementById('question');
-    const optionsEl = document.getElementById('options');
-    const nextBtn = document.getElementById('nextBtn');
-    const progressEl = document.getElementById('progress');
-
-    function loadQuestion(){
-      optionsEl.innerHTML = "";
-      nextBtn.style.display = "none";
-      const data = quizData[current];
-      questionEl.textContent = data.q;
-      progressEl.textContent = `Question ${current+1} of ${quizData.length}`;
-      data.o.forEach((opt,i)=>{
-        const btn = document.createElement('button');
-        btn.textContent = opt;
-        btn.onclick = ()=>selectAnswer(i);
-        optionsEl.appendChild(btn);
-      });
-    }
-
-    function selectAnswer(i){
-      if(i === quizData[current].a) score++;
-      nextBtn.style.display = "block";
-    }
-
-    nextBtn.onclick = ()=>{
+  quiz[current].options.forEach((opt, i) => {
+    const btn = document.createElement("div");
+    btn.className = "option";
+    btn.textContent = opt;
+    btn.onclick = () => {
+      answers.push(i);
       current++;
-      if(current < quizData.length){
-        loadQuestion();
-      } else {
-        document.getElementById('quizBox').innerHTML = `<h4>Quiz Completed 🎉</h4><p>Your score: ${score} / ${quizData.length}</p>`;
-      }
+      current < quiz.length ? loadQuestion() : showResults();
     };
+    optionsDiv.appendChild(btn);
+  });
+}
 
-    loadQuestion();
-  </script>
+function showResults() {
+  document.getElementById("question").textContent = "Quiz Completed 🎉";
+  document.getElementById("options").innerHTML = "";
+
+  let output = "<h3>Correct Answers:</h3><ul>";
+  quiz.forEach((q, i) => {
+    output += `<li>${q.q} → ${q.options[q.answer]}</li>`;
+  });
+  output += "</ul>";
+
+  document.getElementById("result").innerHTML = output;
+}
+
+loadQuestion();
+</script>
+
 </body>
 </html>
