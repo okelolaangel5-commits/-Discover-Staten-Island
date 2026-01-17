@@ -183,11 +183,10 @@ footer {
     and shows like <em>Saturday Night Live</em> stars.
     It has its own identity, humor, and creative spirit that stands out from Manhattan.
   </div>
-
-  <div class="image-box">
-    <img src="https://images.unsplash.com/photo-1549924231-f129b911e442" alt="Staten Island">
-  </div>
-</section>
+<div class="image-box">
+  <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+       alt="Starry Night NYC">
+</div>
 
 <section>
   <h2>🏛 Politics</h2>
@@ -204,7 +203,15 @@ footer {
     src="https://www.openstreetmap.org/export/embed.html?bbox=-74.3%2C40.45%2C-74.0%2C40.7&layer=mapnik">
   </iframe>
 </section>
+  
+<section class="quiz">
+  <h2>🧠 Staten Island Quiz</h2>
+  <div id="quizBox"></div>
+  <button onclick="nextQuestion()">Next</button>
+  <div id="result"></div>
+</section>
 
+  
 <section class="quiz">
   <h2>🧠 Staten Island Quiz (16 Questions)</h2>
   <form id="quizForm"></form>
@@ -217,55 +224,85 @@ footer {
 </footer>
 
 <audio id="applause" src="https://www.soundjay.com/human/applause-8.mp3"></audio>
-
 <script>
 const questions = [
  ["Which bridge connects Staten Island to Brooklyn?", "Verrazzano-Narrows Bridge"],
- ["What ferry is famous and free?", "Staten Island Ferry"],
- ["Which borough joined NYC in 1898?", "Staten Island"],
- ["Who explored Staten Island in 1609?", "Henry Hudson"],
- ["Which rap group is from Staten Island?", "Wu-Tang Clan"],
- ["What ocean borders Staten Island?", "Atlantic Ocean"],
- ["What is Staten Island's county name?", "Richmond County"],
- ["Which park is the largest?", "Freshkills Park"],
- ["What transport is iconic?", "Ferry"],
- ["Which bridge opened in 1964?", "Verrazzano-Narrows Bridge"],
- ["Native tribe?", "Lenape"],
+ ["What free ferry connects Staten Island to Manhattan?", "Staten Island Ferry"],
  ["Which NYC borough is most suburban?", "Staten Island"],
+ ["Which rap group comes from Staten Island?", "Wu-Tang Clan"],
+ ["Which year did Staten Island become part of NYC?", "1898"],
+ ["Who explored Staten Island in 1609?", "Henry Hudson"],
+ ["Which Native American tribe lived there?", "Lenape"],
+ ["Which bridge opened in 1964?", "Verrazzano-Narrows Bridge"],
+ ["What county is Staten Island?", "Richmond County"],
+ ["Which park is one of the largest in NYC?", "Freshkills Park"],
  ["Which waterway separates it from Manhattan?", "New York Harbor"],
- ["Which show features Staten Island humor?", "SNL"],
+ ["What transport is iconic?", "Ferry"],
  ["Which borough is least populated?", "Staten Island"],
+ ["What is Staten Island known for in comedy?", "Strong comedy culture"],
+ ["Which ocean borders it?", "Atlantic Ocean"],
  ["Main role today?", "Residential borough"]
 ];
 
-const quizForm = document.getElementById("quizForm");
+let current = 0;
+let score = 0;
+let wrong = [];
 
-questions.forEach((q,i)=>{
-  quizForm.innerHTML += `
-    <div class="question">
-      <p>${i+1}. ${q[0]}</p>
-      <input type="text" name="q${i}">
-    </div>`;
-});
+const box = document.getElementById("quizBox");
 
-function submitQuiz() {
-  let score = 0;
-  let feedback = "<h3>Your Results:</h3>";
+function showQuestion() {
+  box.innerHTML = `
+    <p><strong>Question ${current + 1}/16</strong></p>
+    <p>${questions[current][0]}</p>
+    <input type="text" id="answer">
+  `;
+}
 
-  questions.forEach((q,i)=>{
-    const answer = quizForm["q"+i].value.trim().toLowerCase();
-    if(answer === q[1].toLowerCase()) {
-      score++;
-    } else {
-      feedback += `<p>❌ Q${i+1}: Correct answer is <strong>${q[1]}</strong></p>`;
-    }
-  });
+function nextQuestion() {
+  const input = document.getElementById("answer");
+  if (!input) return;
 
-  document.getElementById("result").innerHTML =
-    `<h2>${score}/16</h2>` + feedback;
+  const userAnswer = input.value.trim().toLowerCase();
+  const correct = questions[current][1].toLowerCase();
 
+  if (userAnswer === correct) {
+    score++;
+  } else {
+    wrong.push({
+      q: questions[current][0],
+      a: questions[current][1]
+    });
+  }
+
+  current++;
+
+  if (current < questions.length) {
+    showQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz() {
+  document.getElementById("quizBox").innerHTML = "";
+  let output = `<h2>${score}/16</h2>`;
+
+  if (wrong.length > 0) {
+    output += "<h3>Review:</h3>";
+    wrong.forEach(w => {
+      output += `<p>❌ ${w.q}<br>✅ ${w.a}</p>`;
+    });
+  }
+
+  document.getElementById("result").innerHTML = output;
   document.getElementById("applause").play();
   launchConfetti();
+}
+
+showQuestion();
+</script>
+
+
 }
 
 function launchConfetti() {
