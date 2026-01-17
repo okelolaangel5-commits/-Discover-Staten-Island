@@ -6,163 +6,138 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --blue:#4da3ff;
-  --dark:#05070c;
-  --card:#0d1222;
+:root {
+  --blue: #00bfff;
+  --dark: #050b14;
+  --glow: 0 0 15px rgba(0,191,255,0.7);
 }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Arial;}
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
 
-body{
-  background:var(--dark);
-  color:white;
-  overflow-x:hidden;
+body {
+  margin: 0;
+  background: var(--dark);
+  color: white;
+  overflow-x: hidden;
 }
 
 /* HERO */
-.hero{
-  min-height:100vh;
+.hero {
+  min-height: 100vh;
   background:
-    linear-gradient(to bottom, rgba(5,7,12,.85), rgba(5,7,12,.95)),
-    url("https://images.unsplash.com/photo-1549921296-3fd62a8c46d4");
-  background-size:cover;
-  background-position:center;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+    url("https://images.unsplash.com/photo-1542224566-6e85f2e6772f");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 120px 20px;
 }
 
-.hero h1{
-  font-size:4rem;
-  letter-spacing:4px;
-  text-shadow:0 0 25px var(--blue);
-  animation:float 4s ease-in-out infinite;
+.hero h1 {
+  font-size: 4rem;
+  letter-spacing: 4px;
+  text-shadow: var(--glow);
+  animation: float 4s ease-in-out infinite;
 }
 
-.hero p{
-  margin-top:15px;
-  color:#cbdcff;
+.hero p {
+  max-width: 700px;
+  margin: auto;
+  font-size: 1.2rem;
+  opacity: 0.9;
 }
 
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-12px);}
+/* FLOATING */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
 }
 
-/* SECTIONS */
-section{
-  padding:80px 8%;
+/* SECTION */
+section {
+  padding: 80px 10%;
 }
 
-h2{
-  color:var(--blue);
-  margin-bottom:20px;
-  text-shadow:0 0 12px var(--blue);
+h2 {
+  color: var(--blue);
+  text-shadow: var(--glow);
+  margin-bottom: 20px;
 }
 
-.card{
-  background:var(--card);
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 0 30px rgba(77,163,255,.2);
-  margin-bottom:30px;
-  animation:fadeUp 1s ease forwards;
+.details {
+  line-height: 1.8;
+  opacity: 0.9;
 }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(40px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-img{
-  width:100%;
-  border-radius:12px;
-  margin-top:15px;
+/* IMAGES */
+.image-box img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 15px;
+  box-shadow: var(--glow);
+  margin: 20px 0;
 }
 
 /* MAP */
-.map{
-  display:flex;
-  justify-content:center;
-}
-
-svg{
-  width:320px;
-  filter:drop-shadow(0 0 20px var(--blue));
+.map iframe {
+  width: 100%;
+  height: 400px;
+  border-radius: 15px;
+  border: none;
+  box-shadow: var(--glow);
 }
 
 /* QUIZ */
-.quiz{
-  max-width:700px;
-  margin:auto;
+.quiz {
+  background: #080f1f;
+  border-radius: 20px;
+  box-shadow: var(--glow);
 }
 
-.progress{
-  height:10px;
-  background:#1a1f35;
-  border-radius:5px;
-  margin-bottom:20px;
-  overflow:hidden;
+.question {
+  margin-bottom: 25px;
 }
 
-.bar{
-  height:100%;
-  background:var(--blue);
-  width:0%;
-  transition:.4s;
+button {
+  background: linear-gradient(135deg, #0077ff, #00bfff);
+  border: none;
+  padding: 14px 30px;
+  color: white;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: var(--glow);
+  animation: float 3s ease-in-out infinite;
 }
 
-.options button{
-  width:100%;
-  margin:10px 0;
-  padding:14px;
-  background:#10183a;
-  color:white;
-  border:1px solid var(--blue);
-  border-radius:10px;
-  cursor:pointer;
-  box-shadow:0 0 15px rgba(77,163,255,.3);
+button:hover {
+  transform: scale(1.05);
 }
 
-.options button:hover{
-  background:var(--blue);
-  color:black;
+/* CONFETTI */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: red;
+  top: -10px;
+  animation: fall linear infinite;
 }
 
-.glow{
-  animation:glow 2s infinite;
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
 }
 
-@keyframes glow{
-  0%,100%{box-shadow:0 0 15px var(--blue);}
-  50%{box-shadow:0 0 35px var(--blue);}
-}
-
-/* END */
-.end{
-  text-align:center;
-  display:none;
-}
-
-.confetti{
-  position:fixed;
-  width:8px;
-  height:8px;
-  background:red;
-  top:-10px;
-  animation:fall linear forwards;
-}
-
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg);}
-}
-
-footer{
-  text-align:center;
-  padding:25px;
-  color:#9bb6ff;
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  opacity: 0.7;
 }
 </style>
 </head>
@@ -170,165 +145,143 @@ footer{
 <body>
 
 <div class="hero">
-  <div>
-    <h1>DISCOVER STATEN ISLAND</h1>
-    <p>History · Culture · Politics · Pop Culture</p>
-    <p><b>Angel Okelola · Stella · Tila · Eske · Johan</b></p>
+  <h1>DISCOVER STATEN ISLAND</h1>
+  <p>
+    A glowing journey through Staten Island’s history, culture, politics,
+    and modern influence in New York City.
+  </p>
+  <p><strong>By: Angel Okelola • Stella • Tila • Eske • Johan</strong></p>
+</div>
+
+<section>
+  <h2>🏛 History</h2>
+  <div class="details">
+    Staten Island was first inhabited by the Lenape Native Americans.
+    In 1609, it was explored by Henry Hudson. It later became part of New York City in 1898.
+    Unlike other boroughs, Staten Island kept a suburban character, rich with parks,
+    waterfronts, and preserved historical towns.
   </div>
-</div>
-
-<section>
-<h2>📜 History</h2>
-<div class="card">
-Staten Island was first inhabited by the Lenape Native Americans. In 1624,
-the Dutch established New Netherland and named the island “Staaten Eylandt.”
-It officially became part of New York City in 1898.
-<img src="https://images.unsplash.com/photo-1604085572614-fbdb1dcb8f1c">
-</div>
 </section>
 
 <section>
-<h2>⏳ Timeline</h2>
-<div class="card">
-<ul>
-<li>1600s – Lenape & Dutch settlement</li>
-<li>1776 – British military base</li>
-<li>1898 – Becomes NYC’s 5th borough</li>
-<li>1964 – Verrazzano Bridge opens</li>
-</ul>
-</div>
+  <h2>📅 Timeline</h2>
+  <div class="details">
+    <ul>
+      <li><strong>1609:</strong> Henry Hudson explores the island</li>
+      <li><strong>1661:</strong> First permanent Dutch settlement</li>
+      <li><strong>1898:</strong> Becomes a borough of NYC</li>
+      <li><strong>1964:</strong> Verrazzano-Narrows Bridge opens</li>
+      <li><strong>Present:</strong> Cultural and residential hub</li>
+    </ul>
+  </div>
 </section>
 
 <section>
-<h2>🏛 Politics</h2>
-<div class="card">
-Staten Island is known for voting differently from other NYC boroughs.
-It has strong local governance and representation in both city and state politics.
-</div>
+  <h2>🎭 Pop Culture</h2>
+  <div class="details">
+    Staten Island is known for Wu-Tang Clan, strong comedy culture,
+    and shows like <em>Saturday Night Live</em> stars.
+    It has its own identity, humor, and creative spirit that stands out from Manhattan.
+  </div>
+
+  <div class="image-box">
+    <img src="https://images.unsplash.com/photo-1549924231-f129b911e442" alt="Staten Island">
+  </div>
 </section>
 
 <section>
-<h2>🎭 Pop Culture</h2>
-<div class="card">
-Staten Island is home to the Wu-Tang Clan and has appeared in many NYC-based films and TV shows.
-</div>
+  <h2>🏛 Politics</h2>
+  <div class="details">
+    Staten Island often differs politically from other NYC boroughs.
+    It has a strong local identity, active civic engagement,
+    and debates around transportation, development, and environmental protection.
+  </div>
 </section>
 
-<section>
-<h2>🗺 Custom Map</h2>
-<div class="map">
-<svg viewBox="0 0 200 120">
-  <path d="M30 60 Q60 10 120 20 Q180 40 150 90 Q90 120 40 90 Z"
-        fill="#4da3ff"/>
-</svg>
-</div>
+<section class="map">
+  <h2>🗺 Real Map of Staten Island</h2>
+  <iframe 
+    src="https://www.openstreetmap.org/export/embed.html?bbox=-74.3%2C40.45%2C-74.0%2C40.7&layer=mapnik">
+  </iframe>
 </section>
 
 <section class="quiz">
-<h2>🧠 Staten Island Quiz</h2>
-
-<div class="progress"><div class="bar" id="bar"></div></div>
-<h3 id="q"></h3>
-
-<div class="options" id="opts"></div>
+  <h2>🧠 Staten Island Quiz (16 Questions)</h2>
+  <form id="quizForm"></form>
+  <button onclick="submitQuiz()">Finish Quiz</button>
+  <div id="result"></div>
 </section>
 
-<div class="end" id="end">
-<h2>🎉 Quiz Complete!</h2>
-<p id="score"></p>
-<p id="review"></p>
-</div>
+<footer>
+  ✨ Discover Staten Island • Project by Angel Okelola & Team ✨
+</footer>
 
 <audio id="applause" src="https://www.soundjay.com/human/applause-8.mp3"></audio>
 
-<footer>
-By Angel Okelola · Stella · Tila · Eske · Johan
-</footer>
-
 <script>
-const quiz=[
-["Which bridge connects Staten Island to Brooklyn?",
-["Brooklyn Bridge","Verrazzano-Narrows Bridge","Manhattan Bridge","Queensboro Bridge"],1],
-["What ferry is famous on Staten Island?",
-["Ellis Ferry","Hudson Ferry","Staten Island Ferry","Liberty Ferry"],2],
-["Which borough was Staten Island originally called?",
-["New Netherland","Staaten Eylandt","New York Island","Hudson Land"],1],
-["Who lived on Staten Island before Europeans?",
-["Inca","Lenape","Aztec","Maya"],1],
-["What year did Staten Island join NYC?",
-["1850","1880","1898","1910"],2],
-["Which bridge opened in 1964?",
-["Brooklyn Bridge","GW Bridge","Verrazzano Bridge","Manhattan Bridge"],2],
-["Staten Island is how many borough?",
-["3rd","4th","5th","6th"],2],
-["Which music group is from Staten Island?",
-["NWA","Wu-Tang Clan","Beatles","BTS"],1],
-["What body of water surrounds Staten Island?",
-["Hudson River","East River","Upper Bay","All of these"],3],
-["What is Staten Island known for politically?",
-["Tourism","Different voting patterns","Fashion","Tech"],1],
-["Largest park on Staten Island?",
-["Central Park","Clove Lakes","Freshkills Park","Bryant Park"],2],
-["Staten Island Ferry is…",
-["Paid","Private","Free","Seasonal"],2],
-["What connects Staten Island to New Jersey?",
-["Tunnel","Bridge","Ferry","Highway"],1],
-["Which ocean is nearby?",
-["Atlantic","Pacific","Indian","Arctic"],0],
-["What NYC borough joined last?",
-["Queens","Bronx","Staten Island","Brooklyn"],2],
-["Staten Island is part of…",
-["NJ","NYC","Pennsylvania","Connecticut"],1]
+const questions = [
+ ["Which bridge connects Staten Island to Brooklyn?", "Verrazzano-Narrows Bridge"],
+ ["What ferry is famous and free?", "Staten Island Ferry"],
+ ["Which borough joined NYC in 1898?", "Staten Island"],
+ ["Who explored Staten Island in 1609?", "Henry Hudson"],
+ ["Which rap group is from Staten Island?", "Wu-Tang Clan"],
+ ["What ocean borders Staten Island?", "Atlantic Ocean"],
+ ["What is Staten Island's county name?", "Richmond County"],
+ ["Which park is the largest?", "Freshkills Park"],
+ ["What transport is iconic?", "Ferry"],
+ ["Which bridge opened in 1964?", "Verrazzano-Narrows Bridge"],
+ ["Native tribe?", "Lenape"],
+ ["Which NYC borough is most suburban?", "Staten Island"],
+ ["Which waterway separates it from Manhattan?", "New York Harbor"],
+ ["Which show features Staten Island humor?", "SNL"],
+ ["Which borough is least populated?", "Staten Island"],
+ ["Main role today?", "Residential borough"]
 ];
 
-let i=0,score=0,wrong=[];
-const q=document.getElementById("q");
-const opts=document.getElementById("opts");
-const bar=document.getElementById("bar");
+const quizForm = document.getElementById("quizForm");
 
-function load(){
-  bar.style.width=(i/quiz.length*100)+"%";
-  q.textContent=(i+1)+". "+quiz[i][0];
-  opts.innerHTML="";
-  quiz[i][1].forEach((o,idx)=>{
-    const b=document.createElement("button");
-    b.textContent=String.fromCharCode(65+idx)+". "+o;
-    b.onclick=()=>check(idx);
-    opts.appendChild(b);
+questions.forEach((q,i)=>{
+  quizForm.innerHTML += `
+    <div class="question">
+      <p>${i+1}. ${q[0]}</p>
+      <input type="text" name="q${i}">
+    </div>`;
+});
+
+function submitQuiz() {
+  let score = 0;
+  let feedback = "<h3>Your Results:</h3>";
+
+  questions.forEach((q,i)=>{
+    const answer = quizForm["q"+i].value.trim().toLowerCase();
+    if(answer === q[1].toLowerCase()) {
+      score++;
+    } else {
+      feedback += `<p>❌ Q${i+1}: Correct answer is <strong>${q[1]}</strong></p>`;
+    }
   });
-}
 
-function check(a){
-  if(a===quiz[i][2]) score++;
-  else wrong.push(`${quiz[i][0]} → Correct: ${quiz[i][1][quiz[i][2]]}`);
-  i++;
-  i<quiz.length?load():end();
-}
+  document.getElementById("result").innerHTML =
+    `<h2>${score}/16</h2>` + feedback;
 
-function end(){
-  document.querySelector(".quiz").style.display="none";
-  document.getElementById("end").style.display="block";
-  document.getElementById("score").textContent=`Score: ${score}/16`;
-  document.getElementById("review").innerHTML=wrong.join("<br>");
   document.getElementById("applause").play();
-  confetti();
+  launchConfetti();
 }
 
-function confetti(){
+function launchConfetti() {
   for(let i=0;i<150;i++){
-    let c=document.createElement("div");
+    const c = document.createElement("div");
     c.className="confetti";
     c.style.left=Math.random()*100+"vw";
     c.style.background=`hsl(${Math.random()*360},100%,50%)`;
-    c.style.animationDuration=(2+Math.random()*3)+"s";
+    c.style.animationDuration=2+Math.random()*3+"s";
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),5000);
   }
 }
-
-load();
 </script>
 
 </body>
 </html>
 
+ 
